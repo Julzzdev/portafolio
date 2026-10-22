@@ -1,0 +1,25 @@
+---
+title: Why I chose Astro + React islands for my portfolio
+description: How the islands architecture lets me ship animations and 3D without sacrificing Lighthouse scores or SEO.
+pubDate: 2026-10-22
+tags: [Astro, React, SEO, Performance]
+---
+
+A portfolio has two audiences: **the people** who visit it and **the search engines** that index it. Traditional SPAs ship lots of JavaScript before showing content; Astro does the opposite.
+
+## HTML first
+
+Astro renders everything to HTML at build time. Only components marked with a `client:*` directive ship JavaScript:
+
+```astro
+---
+import Hero3D from '../components/islands/Hero3D';
+---
+<Hero3D client:media="(min-width: 1024px)" />
+```
+
+## Outcome
+
+- Content is visible right away (good **LCP**).
+- Little JavaScript on the main thread (good **INP/TBT**).
+- Metadata, `hreflang` and JSON-LD on every page.

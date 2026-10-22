@@ -1,0 +1,59 @@
+---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
+import SEO from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { idiomas } from '../i18n/ui';
+import { getIdiomaDeUrl, usarTraducciones } from '../i18n/utils';
+
+type Props = import('astro/types').ComponentProps<typeof SEO>;
+
+const idioma = getIdiomaDeUrl(Astro.url);
+const t = usarTraducciones(idioma);
+---
+
+<!doctype html>
+<html lang={idiomas[idioma].bcp47} class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)" />
+    <SEO {...Astro.props} />
+
+    <!-- Aplica el tema antes de pintar para evitar parpadeo -->
+    <script is:inline>
+      (() => {
+        const aplicar = () => {
+          const guardado = localStorage.getItem('tema');
+          const claro = guardado ? guardado === 'light' : matchMedia('(prefers-color-scheme: light)').matches;
+          document.documentElement.classList.toggle('dark', !claro);
+        };
+        aplicar();
+        document.addEventListener('astro:after-swap', aplicar);
+      })();
+    </script>
+    <ClientRouter />
+  </head>
+  <body class="flex min-h-dvh flex-col">
+    <a
+      href="#contenido"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-superficie focus:px-4 focus:py-2 focus:shadow"
+    >
+      {t('nav.saltar')}
+    </a>
+    <Header alternos={Astro.props.alternos} />
+    <main id="contenido" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <Analytics />
+    <SpeedInsights />
+  </body>
+</html>

@@ -1,0 +1,93 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/jetbrains-mono";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --fondo: #fafaf9;
+  --superficie: #ffffff;
+  --borde: #e7e5e4;
+  --tinta: #18181b;
+  --tinta-suave: #52525b;
+  --acento: #6d4aff;
+  --acento-2: #0d9488;
+}
+
+.dark {
+  --fondo: #09090b;
+  --superficie: #131316;
+  --borde: #27272a;
+  --tinta: #f4f4f5;
+  --tinta-suave: #a1a1aa;
+  --acento: #a28bff;
+  --acento-2: #2dd4bf;
+}
+
+@theme inline {
+  --color-fondo: var(--fondo);
+  --color-superficie: var(--superficie);
+  --color-borde: var(--borde);
+  --color-tinta: var(--tinta);
+  --color-tinta-suave: var(--tinta-suave);
+  --color-acento: var(--acento);
+  --color-acento-2: var(--acento-2);
+}
+
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --animate-flotar: flotar 9s ease-in-out infinite;
+}
+
+@keyframes flotar {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -18px, 0) scale(1.05); }
+}
+
+@utility texto-gradiente {
+  background-image: linear-gradient(100deg, var(--acento), var(--acento-2));
+  background-clip: text;
+  color: transparent;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-fondo font-sans text-tinta antialiased;
+  }
+  ::selection {
+    @apply bg-acento/30;
+  }
+  :focus-visible {
+    @apply rounded-sm outline-2 outline-offset-2 outline-acento;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Bloques de código Shiki con tema dual */
+html.dark .astro-code,
+html.dark .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}

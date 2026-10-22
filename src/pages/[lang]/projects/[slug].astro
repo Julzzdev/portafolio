@@ -1,0 +1,80 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../../layouts/Base.astro';
+import Encabezado from '../../../components/Encabezado.astro';
+import BotonLink from '../../../components/BotonLink.astro';
+import { idiomasDisponibles } from '../../../lib/contenido';
+import { personaLd } from '../../../lib/schema';
+import { ruta, separarId, usarTraducciones } from '../../../i18n/utils';
+import { idiomas } from '../../../i18n/ui';
+
+export async function getStaticPaths() {
+  const proyectos = await getCollection('projects');
+  return proyectos.map((proyecto) => {
+    const { idioma, slug } = separarId(proyecto.id);
+    return {
+      params: { lang: idioma, slug },
+      props: { proyecto, alternos: idiomasDisponibles(proyectos, slug) },
+    };
+  });
+}
+
+const { proyecto, alternos } = Astro.props;
+const { idioma } = separarId(proyecto.id);
+const t = usarTraducciones(idioma);
+const { title, description, stack, cover, coverAlt, repo, demo, date, accent } = proyecto.data;
+const { Content } = await render(proyecto);
+---
+
+<Base
+  titulo={`${title} · Julio Olvera`}
+  descripcion={description}
+  tipo="article"
+  alternos={alternos}
+  publicado={date}
+  jsonLd={[
+    {
+      '@type': 'CreativeWork',
+      name: title,
+      description,
+      dateCreated: date.toISOString(),
+      inLanguage: idiomas[idioma].bcp47,
+      keywords: stack.join(', '),
+      url: new URL(Astro.url.pathname, Astro.site).href,
+      ...(repo && { codeRepository: repo }),
+      author: personaLd(Astro.site!),
+    },
+  ]}
+>
+  <article>
+    <Encabezado titulo={title} descripcion={description}>
+      <a slot="antes" href={ruta(idioma, 'projects')} class="mb-6 inline-block text-sm text-tinta-suave hover:text-tinta">
+        ← {t('proyectos.volver')}
+      </a>
+      <ul class="mt-6 flex flex-wrap gap-2">
+        {stack.map((tec) => <li class="rounded-full border border-borde px-3 py-1 font-mono text-xs" style={`border-color: ${accent}55`}>{tec}</li>)}
+      </ul>
+      {
+        (demo || repo) && (
+          <div class="mt-6 flex flex-wrap gap-3">
+            {demo && <BotonLink href={demo} externo>{t('proyectos.demo')} ↗</BotonLink>}
+            {repo && <BotonLink href={repo} externo variante="secundario">{t('proyectos.repo')} ↗</BotonLink>}
+          </div>
+        )
+      }
+    </Encabezado>
+
+    {
+      cover && (
+        <div class="mx-auto mt-8 max-w-6xl px-5">
+          <Image src={cover} alt={coverAlt ?? title} widths={[800, 1200, 1600]} sizes="(min-width: 1152px) 1152px, 100vw" loading="eager" fetchpriority="high" class="w-full rounded-3xl border border-borde" />
+        </div>
+      )
+    }
+
+    <div class="prose prose-zinc dark:prose-invert mx-auto max-w-3xl px-5 py-12 prose-headings:tracking-tight prose-a:text-acento">
+      <Content />
+    </div>
+  </article>
+</Base>

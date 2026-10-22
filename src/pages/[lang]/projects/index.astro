@@ -1,0 +1,21 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Encabezado from '../../../components/Encabezado.astro';
+import ProjectCard from '../../../components/ProjectCard.astro';
+import { getProyectos } from '../../../lib/contenido';
+import { pathsIdiomas, usarTraducciones } from '../../../i18n/utils';
+import type { Idioma } from '../../../i18n/ui';
+
+export const getStaticPaths = pathsIdiomas;
+
+const idioma = Astro.params.lang as Idioma;
+const t = usarTraducciones(idioma);
+const proyectos = await getProyectos(idioma);
+---
+
+<Base titulo={`${t('proyectos.titulo')} · Julio Olvera`} descripcion={t('proyectos.descripcion')}>
+  <Encabezado titulo={t('proyectos.titulo')} descripcion={t('proyectos.descripcion')} />
+  <div class="mx-auto grid max-w-6xl gap-6 px-5 py-10 md:grid-cols-2">
+    {proyectos.map((proyecto) => <ProjectCard proyecto={proyecto} nivel="h2" />)}
+  </div>
+</Base>

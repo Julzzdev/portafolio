@@ -1,0 +1,14 @@
+---
+interface Props {
+  titulo: string;
+  descripcion?: string;
+}
+const { titulo, descripcion } = Astro.props;
+---
+
+<header class="mx-auto max-w-6xl px-5 pt-16 pb-4 sm:pt-24">
+  <slot name="antes" />
+  <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">{titulo}</h1>
+  {descripcion && <p class="mt-4 max-w-2xl text-lg text-tinta-suave">{descripcion}</p>}
+  <slot />
+</header>

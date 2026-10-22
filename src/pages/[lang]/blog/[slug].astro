@@ -1,0 +1,67 @@
+---
+import { render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Encabezado from '../../../components/Encabezado.astro';
+import { getPosts, idiomasDisponibles, minutosLectura } from '../../../lib/contenido';
+import { personaLd } from '../../../lib/schema';
+import { formatearFecha, ruta, separarId, usarTraducciones } from '../../../i18n/utils';
+import { idiomas } from '../../../i18n/ui';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => {
+    const { idioma, slug } = separarId(post.id);
+    return {
+      params: { lang: idioma, slug },
+      props: { post, alternos: idiomasDisponibles(posts, slug) },
+    };
+  });
+}
+
+const { post, alternos } = Astro.props;
+const { idioma } = separarId(post.id);
+const t = usarTraducciones(idioma);
+const { title, description, pubDate, updatedDate, tags } = post.data;
+const { Content } = await render(post);
+const url = new URL(Astro.url.pathname, Astro.site).href;
+---
+
+<Base
+  titulo={`${title} · Julio Olvera`}
+  descripcion={description}
+  tipo="article"
+  alternos={alternos}
+  publicado={pubDate}
+  jsonLd={[
+    {
+      '@type': 'BlogPosting',
+      headline: title,
+      description,
+      datePublished: pubDate.toISOString(),
+      dateModified: (updatedDate ?? pubDate).toISOString(),
+      inLanguage: idiomas[idioma].bcp47,
+      keywords: tags.join(', '),
+      mainEntityOfPage: url,
+      image: new URL(`/og${Astro.url.pathname.replace(/\/$/, '')}.png`, Astro.site).href,
+      author: personaLd(Astro.site!),
+    },
+  ]}
+>
+  <article>
+    <Encabezado titulo={title} descripcion={description}>
+      <a slot="antes" href={ruta(idioma, 'blog')} class="mb-6 inline-block text-sm text-tinta-suave hover:text-tinta">
+        ← {t('blog.volver')}
+      </a>
+      <p class="mt-6 font-mono text-xs text-tinta-suave">
+        <time datetime={pubDate.toISOString()}>{formatearFecha(pubDate, idioma)}</time>
+        · {minutosLectura(post.body)} {t('blog.lectura')}
+      </p>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {tags.map((tag) => <li class="rounded-full bg-borde/50 px-3 py-1 text-xs">#{tag}</li>)}
+      </ul>
+    </Encabezado>
+    <div class="prose prose-zinc dark:prose-invert mx-auto max-w-3xl px-5 py-12 prose-headings:tracking-tight prose-a:text-acento prose-pre:rounded-2xl prose-pre:border prose-pre:border-borde">
+      <Content />
+    </div>
+  </article>
+</Base>

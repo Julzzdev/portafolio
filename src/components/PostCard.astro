@@ -1,0 +1,22 @@
+---
+import type { Post } from '../lib/contenido';
+import { formatearFecha, ruta, separarId } from '../i18n/utils';
+
+interface Props {
+  /** Nivel del título según la jerarquía de la página. */
+  nivel?: 'h2' | 'h3';
+  post: Post;
+}
+const { post, nivel: Titulo = 'h3' } = Astro.props;
+const { idioma, slug } = separarId(post.id);
+---
+
+<article class="group relative rounded-2xl border border-borde bg-superficie p-6 transition hover:border-acento/50">
+  <time datetime={post.data.pubDate.toISOString()} class="font-mono text-xs text-tinta-suave">
+    {formatearFecha(post.data.pubDate, idioma)}
+  </time>
+  <Titulo class="mt-2 text-lg font-semibold tracking-tight group-hover:text-acento">
+    <a href={ruta(idioma, `blog/${slug}`)} class="after:absolute after:inset-0">{post.data.title}</a>
+  </Titulo>
+  <p class="mt-2 text-sm text-tinta-suave">{post.data.description}</p>
+</article>

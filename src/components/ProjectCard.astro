@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets';
+import type { Proyecto } from '../lib/contenido';
+import { separarId, ruta } from '../i18n/utils';
+
+interface Props {
+  /** Nivel del título según la jerarquía de la página. */
+  nivel?: 'h2' | 'h3';
+  proyecto: Proyecto;
+  grande?: boolean;
+}
+
+const { proyecto, grande = false, nivel: Titulo = 'h3' } = Astro.props;
+const { idioma, slug } = separarId(proyecto.id);
+const { title, description, stack, cover, coverAlt, accent } = proyecto.data;
+---
+
+<article
+  class:list={[
+    'group relative flex flex-col overflow-hidden rounded-3xl border border-borde bg-superficie transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[var(--acento-card)]/15',
+    grande && 'md:col-span-2',
+  ]}
+  style={`--acento-card: ${accent}`}
+>
+  <div class:list={['relative overflow-hidden', grande ? 'aspect-[21/9]' : 'aspect-[16/9]']}>
+    {
+      cover ? (
+        <Image
+          src={cover}
+          alt={coverAlt ?? title}
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          class="size-full object-cover transition duration-500 group-hover:scale-105"
+        />
+      ) : (
+        <div
+          class="grid size-full place-items-center transition duration-500 group-hover:scale-105"
+          style={`background: radial-gradient(circle at 25% 20%, ${accent}66, transparent 55%), radial-gradient(circle at 80% 80%, ${accent}33, transparent 50%), linear-gradient(135deg, ${accent}22, transparent)`}
+        >
+          <span class="px-6 text-center text-2xl font-bold tracking-tight opacity-80 sm:text-3xl" style={`color: ${accent}`}>
+            {title}
+          </span>
+        </div>
+      )
+    }
+  </div>
+  <div class="flex flex-1 flex-col gap-3 p-6">
+    <Titulo class="text-xl font-semibold tracking-tight">
+      <a href={ruta(idioma, `projects/${slug}`)} class="after:absolute after:inset-0">
+        {title}
+      </a>
+    </Titulo>
+    <p class="text-sm leading-relaxed text-tinta-suave">{description}</p>
+    <ul class="mt-auto flex flex-wrap gap-2 pt-2">
+      {stack.map((tec) => <li class="rounded-full border border-borde px-2.5 py-1 font-mono text-xs text-tinta-suave">{tec}</li>)}
+    </ul>
+  </div>
+</article>

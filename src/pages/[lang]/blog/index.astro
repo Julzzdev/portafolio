@@ -1,0 +1,21 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Encabezado from '../../../components/Encabezado.astro';
+import PostCard from '../../../components/PostCard.astro';
+import { getPosts } from '../../../lib/contenido';
+import { pathsIdiomas, usarTraducciones } from '../../../i18n/utils';
+import type { Idioma } from '../../../i18n/ui';
+
+export const getStaticPaths = pathsIdiomas;
+
+const idioma = Astro.params.lang as Idioma;
+const t = usarTraducciones(idioma);
+const posts = await getPosts(idioma);
+---
+
+<Base titulo={`${t('blog.titulo')} · Julio Olvera`} descripcion={t('blog.descripcion')}>
+  <Encabezado titulo={t('blog.titulo')} descripcion={t('blog.descripcion')} />
+  <div class="mx-auto grid max-w-6xl gap-6 px-5 py-10 md:grid-cols-2">
+    {posts.length ? posts.map((post) => <PostCard post={post} nivel="h2" />) : <p class="text-tinta-suave">{t('blog.vacio')}</p>}
+  </div>
+</Base>

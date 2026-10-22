@@ -1,0 +1,36 @@
+---
+import { PUBLIC_TURNSTILE_SITE_KEY } from 'astro:env/client';
+import Base from '../../layouts/Base.astro';
+import Encabezado from '../../components/Encabezado.astro';
+import ContactForm from '../../components/islands/ContactForm';
+import { sitio } from '../../config/sitio';
+import { pathsIdiomas, usarTraducciones } from '../../i18n/utils';
+import type { Idioma } from '../../i18n/ui';
+
+export const getStaticPaths = pathsIdiomas;
+
+const idioma = Astro.params.lang as Idioma;
+const t = usarTraducciones(idioma);
+const textos = {
+  nombre: t('contacto.nombre'),
+  email: t('contacto.email'),
+  mensaje: t('contacto.mensaje'),
+  enviar: t('contacto.enviar'),
+  enviando: t('contacto.enviando'),
+  ok: t('contacto.ok'),
+  error: t('contacto.error'),
+  invalido: t('contacto.invalido'),
+};
+---
+
+<Base titulo={`${t('contacto.titulo')} · Julio Olvera`} descripcion={t('contacto.descripcion')}>
+  <Encabezado titulo={t('contacto.titulo')} descripcion={t('contacto.descripcion')} />
+  <div class="mx-auto max-w-6xl px-5 py-10">
+    <div class="max-w-3xl rounded-3xl border border-borde bg-superficie p-6 sm:p-10">
+      <ContactForm client:visible textos={textos} idioma={idioma} turnstileSiteKey={PUBLIC_TURNSTILE_SITE_KEY} />
+    </div>
+    <p class="mt-6 text-sm text-tinta-suave">
+      {t('contacto.alternativa')} <a href={`mailto:${sitio.email}`} class="font-medium text-acento hover:underline">{sitio.email}</a>
+    </p>
+  </div>
+</Base>

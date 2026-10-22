@@ -1,0 +1,28 @@
+---
+import { getIdiomaDeUrl, usarTraducciones } from '../i18n/utils';
+import { sitio } from '../config/sitio';
+
+const t = usarTraducciones(getIdiomaDeUrl(Astro.url));
+const redes = [
+  { href: sitio.github, texto: 'GitHub' },
+  { href: sitio.linkedin, texto: 'LinkedIn' },
+  { href: `mailto:${sitio.email}`, texto: 'Email' },
+];
+---
+
+<footer class="mt-24 border-t border-borde/60">
+  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-10 text-sm text-tinta-suave sm:flex-row">
+    <p>© {new Date().getFullYear()} {sitio.nombre}. {t('footer.hecho')}</p>
+    <ul class="flex gap-5">
+      {
+        redes.map(({ href, texto }) => (
+          <li>
+            <a href={href} class="transition hover:text-tinta" rel="me noopener" target={href.startsWith('http') ? '_blank' : undefined}>
+              {texto}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>

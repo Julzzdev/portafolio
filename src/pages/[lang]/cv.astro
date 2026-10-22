@@ -1,0 +1,66 @@
+---
+import Base from '../../layouts/Base.astro';
+import Encabezado from '../../components/Encabezado.astro';
+import BotonLink from '../../components/BotonLink.astro';
+import { sitio } from '../../config/sitio';
+import { experiencia } from '../../data/experiencia';
+import { personaLd } from '../../lib/schema';
+import { pathsIdiomas, usarTraducciones } from '../../i18n/utils';
+import { idiomas, type Idioma } from '../../i18n/ui';
+
+export const getStaticPaths = pathsIdiomas;
+
+const idioma = Astro.params.lang as Idioma;
+const t = usarTraducciones(idioma);
+const pdf = sitio.cv[idioma];
+const mes = (aaaamm: string) =>
+  new Date(`${aaaamm}-01T12:00:00`).toLocaleDateString(idiomas[idioma].bcp47, { year: 'numeric', month: 'short' });
+---
+
+<Base titulo={`${t('cv.titulo')} · Julio Olvera`} descripcion={t('cv.descripcion')} jsonLd={[personaLd(Astro.site!)]}>
+  <Encabezado titulo={t('cv.titulo')} descripcion={t('cv.descripcion')}>
+    {
+      pdf && (
+        <div class="mt-6">
+          <BotonLink href={pdf}>{t('cv.descargar')} ↓</BotonLink>
+        </div>
+      )
+    }
+  </Encabezado>
+
+  <div class="mx-auto grid max-w-6xl gap-12 px-5 py-12 lg:grid-cols-[2fr_1fr]">
+    <section>
+      <h2 class="mb-8 text-2xl font-bold tracking-tight">{t('cv.trayectoria')}</h2>
+      <ol class="relative border-l border-borde">
+        {
+          experiencia.map((item) => (
+            <li class="mb-10 ml-6">
+              <span class:list={['absolute -left-[7px] mt-1.5 size-3.5 rounded-full ring-4 ring-fondo', item.tipo === 'trabajo' ? 'bg-acento' : 'bg-acento-2']} />
+              <p class="font-mono text-xs text-tinta-suave">
+                {mes(item.inicio)} — {item.fin ? mes(item.fin) : t('cv.actual')}
+              </p>
+              <h3 class="mt-1 text-lg font-semibold">{item.rol[idioma]}</h3>
+              <p class="text-sm text-acento">{item.lugar}</p>
+              <p class="mt-2 text-tinta-suave">{item.descripcion[idioma]}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+    <aside>
+      <h2 class="mb-8 text-2xl font-bold tracking-tight">{t('cv.habilidades')}</h2>
+      <div class="grid gap-6">
+        {
+          Object.entries(sitio.habilidades).map(([grupo, lista]) => (
+            <div>
+              <h3 class="font-mono text-sm text-tinta-suave">{t(`stack.${grupo as keyof typeof sitio.habilidades}`)}</h3>
+              <ul class="mt-3 flex flex-wrap gap-2">
+                {lista.map((h) => <li class="rounded-full border border-borde px-3 py-1 text-sm">{h}</li>)}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </aside>
+  </div>
+</Base>

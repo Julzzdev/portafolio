@@ -1,0 +1,80 @@
+---
+import { idiomas, idiomaPorDefecto, type Idioma } from '../i18n/ui';
+import { cambiarIdioma, getIdiomaDeUrl } from '../i18n/utils';
+import { sitio } from '../config/sitio';
+
+interface Props {
+  titulo: string;
+  descripcion: string;
+  tipo?: 'website' | 'article';
+  imagen?: string;
+  /** Idiomas en los que existe esta misma página (para hreflang). */
+  alternos?: Idioma[];
+  jsonLd?: Record<string, unknown>[];
+  publicado?: Date;
+  noIndex?: boolean;
+}
+
+const idioma = getIdiomaDeUrl(Astro.url);
+const clavePagina = Astro.url.pathname.replace(/^\/|\/$/g, '') || idioma;
+const {
+  titulo,
+  descripcion,
+  tipo = 'website',
+  imagen = `/og/${clavePagina}.png`,
+  alternos = Object.keys(idiomas) as Idioma[],
+  jsonLd = [],
+  publicado,
+  noIndex = false,
+} = Astro.props;
+
+const absoluta = (path: string) => new URL(path, Astro.site).href;
+const canonica = absoluta(Astro.url.pathname);
+const urlImagen = absoluta(imagen);
+---
+
+<title>{titulo}</title>
+<meta name="description" content={descripcion} />
+<link rel="canonical" href={canonica} />
+{noIndex && <meta name="robots" content="noindex" />}
+<meta name="author" content={sitio.nombre} />
+
+{
+  alternos.map((alt) => (
+    <link rel="alternate" hreflang={idiomas[alt].bcp47} href={absoluta(cambiarIdioma(Astro.url, alt))} />
+  ))
+}
+{
+  alternos.includes(idiomaPorDefecto) && (
+    <link rel="alternate" hreflang="x-default" href={absoluta(cambiarIdioma(Astro.url, idiomaPorDefecto))} />
+  )
+}
+<link rel="alternate" type="application/rss+xml" title={`Blog · ${sitio.nombre}`} href={absoluta(`/${idioma}/rss.xml`)} />
+
+<meta property="og:type" content={tipo} />
+<meta property="og:site_name" content={sitio.nombre} />
+<meta property="og:locale" content={idiomas[idioma].locale} />
+{
+  alternos
+    .filter((alt) => alt !== idioma)
+    .map((alt) => <meta property="og:locale:alternate" content={idiomas[alt].locale} />)
+}
+<meta property="og:title" content={titulo} />
+<meta property="og:description" content={descripcion} />
+<meta property="og:url" content={canonica} />
+<meta property="og:image" content={urlImagen} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={titulo} />
+{publicado && <meta property="article:published_time" content={publicado.toISOString()} />}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={titulo} />
+<meta name="twitter:description" content={descripcion} />
+<meta name="twitter:image" content={urlImagen} />
+
+{
+  jsonLd.map((datos) => (
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({ '@context': 'https://schema.org', ...datos })} />
+  ))
+}
