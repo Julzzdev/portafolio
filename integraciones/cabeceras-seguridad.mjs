@@ -15,6 +15,10 @@ import { fileURLToPath } from 'node:url';
 
 const SCRIPT_INLINE = /<script(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)[^>]*>([\s\S]*?)<\/script>/g;
 
+/**
+ * @param {string} dir
+ * @returns {AsyncGenerator<string>}
+ */
 async function* archivosHtml(dir) {
   for (const entrada of await readdir(dir, { withFileTypes: true })) {
     const ruta = join(dir, entrada.name);
@@ -23,6 +27,7 @@ async function* archivosHtml(dir) {
   }
 }
 
+/** @param {string} dir */
 async function hashesScriptsInline(dir) {
   const hashes = new Set();
   for await (const archivo of archivosHtml(dir)) {
@@ -33,6 +38,7 @@ async function hashesScriptsInline(dir) {
   return [...hashes].sort();
 }
 
+/** @param {string[]} hashes */
 export function construirCsp(hashes) {
   const turnstile = 'https://challenges.cloudflare.com';
   return [
@@ -53,6 +59,7 @@ export function construirCsp(hashes) {
   ].join('; ');
 }
 
+/** @param {string[]} hashes */
 export function cabeceras(hashes) {
   return {
     'Content-Security-Policy': construirCsp(hashes),
@@ -67,7 +74,8 @@ export function cabeceras(hashes) {
 
 /** @returns {import('astro').AstroIntegration} */
 export default function cabecerasSeguridad() {
-  let raiz;
+  /** @type {string} */
+  let raiz = '';
   return {
     name: 'cabeceras-seguridad',
     hooks: {
@@ -82,7 +90,7 @@ export default function cabecerasSeguridad() {
         const hashes = await hashesScriptsInline(fileURLToPath(dir));
 
         // Se insertan antes del handle "filesystem" para que apliquen también a archivos estáticos
-        const indice = config.routes.findIndex((r) => r.handle === 'filesystem');
+        const indice = config.routes.findIndex((/** @type {{ handle?: string }} */ r) => r.handle === 'filesystem');
         config.routes.splice(indice === -1 ? 0 : indice, 0, {
           src: '/(.*)',
           headers: cabeceras(hashes),
