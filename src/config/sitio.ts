@@ -1,8 +1,7 @@
-// TODO: confirmar email (no viene en el CV)
 export const sitio = {
   nombre: 'Julio Olvera',
   iniciales: 'JO',
-  email: 'hola@julioolvera.dev',
+  email: 'julzzdev@gmail.com',
   ubicacion: 'México',
   github: 'https://github.com/Julzzdev',
   linkedin: 'https://www.linkedin.com/in/julio-olvera-ortiz-b74737166/',

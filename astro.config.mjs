@@ -10,8 +10,11 @@ import cabecerasSeguridad from './integraciones/cabeceras-seguridad.mjs';
 
 // https://astro.build/config
 export default defineConfig({
-  // TODO: reemplazar por el dominio definitivo
-  site: 'https://julioolvera.dev',
+  // En Vercel se usa el dominio de producción (subdominio .vercel.app o el propio si se conecta);
+  // fuera de Vercel, SITE_URL o localhost
+  site: process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : (process.env.SITE_URL ?? 'http://localhost:4321'),
   output: 'static',
   trailingSlash: 'ignore',
   // Antes lo activaba <ClientRouter />; ahora se precargan los enlaces al pasar el cursor

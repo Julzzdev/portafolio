@@ -17,7 +17,7 @@ npm run build    # salida en .vercel/output
 | Qué | Archivo |
 |---|---|
 | Nombre, email, redes, habilidades, PDF del CV | `src/config/sitio.ts` |
-| Dominio | `site` en `astro.config.mjs` |
+| Dominio | Automático en Vercel (`VERCEL_PROJECT_PRODUCTION_URL`); fuera de Vercel, variable `SITE_URL` |
 | Proyectos (uno por idioma, mismo nombre de archivo) | `src/content/projects/{es,en}/*.mdx` |
 | Artículos del blog | `src/content/blog/{es,en}/*.mdx` |
 | Trayectoria / educación | `src/data/experiencia.ts` |
