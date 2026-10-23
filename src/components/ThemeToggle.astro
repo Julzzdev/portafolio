@@ -22,13 +22,10 @@ const { etiqueta } = Astro.props;
 </button>
 
 <script>
-  function conectar() {
-    document.querySelectorAll<HTMLButtonElement>('[data-tema-toggle]').forEach((boton) => {
-      boton.addEventListener('click', () => {
-        const oscuro = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('tema', oscuro ? 'dark' : 'light');
-      });
+  document.querySelectorAll<HTMLButtonElement>('[data-tema-toggle]').forEach((boton) => {
+    boton.addEventListener('click', () => {
+      const oscuro = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('tema', oscuro ? 'dark' : 'light');
     });
-  }
-  document.addEventListener('astro:page-load', conectar);
+  });
 </script>

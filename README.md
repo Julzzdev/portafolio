@@ -33,6 +33,14 @@ Los datos provisionales están marcados con `TODO`. Para añadir portada a un pr
 - `hreflang` + `x-default`, canonical, Open Graph/Twitter, JSON-LD (`Person`, `WebSite`, `CreativeWork`, `BlogPosting`).
 - Imagen OG por página generada en build (`src/pages/og/[...slug].png.ts`), sitemap con i18n, RSS por idioma (`/es/rss.xml`), `robots.txt`.
 
+## Seguridad
+
+`integraciones/cabeceras-seguridad.mjs` agrega al `config.json` de Vercel: CSP con hashes SHA-256 de cada script inline (se recalculan en cada build), HSTS, COOP, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` y `nosniff`.
+
+- Si agregas un script de terceros, añade su dominio en `construirCsp()`.
+- Las transiciones entre páginas usan View Transitions nativas (`@view-transition` en `global.css`) en lugar de `<ClientRouter />`.
+- Vercel Analytics y Speed Insights sólo se incluyen en builds de Vercel (`process.env.VERCEL`).
+
 ## Formulario de contacto
 
 `src/pages/api/contact.ts` es la única función serverless. Variables en Vercel:

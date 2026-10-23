@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import { ClientRouter } from 'astro:transitions';
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import SEO from '../components/SEO.astro';
@@ -13,6 +12,8 @@ type Props = import('astro/types').ComponentProps<typeof SEO>;
 
 const idioma = getIdiomaDeUrl(Astro.url);
 const t = usarTraducciones(idioma);
+// Los scripts de /_vercel/* sólo existen en despliegues de Vercel; fuera de ahí darían 404
+const enVercel = !!process.env.VERCEL;
 ---
 
 <!doctype html>
@@ -30,16 +31,11 @@ const t = usarTraducciones(idioma);
     <!-- Aplica el tema antes de pintar para evitar parpadeo -->
     <script is:inline>
       (() => {
-        const aplicar = () => {
-          const guardado = localStorage.getItem('tema');
-          const claro = guardado ? guardado === 'light' : matchMedia('(prefers-color-scheme: light)').matches;
-          document.documentElement.classList.toggle('dark', !claro);
-        };
-        aplicar();
-        document.addEventListener('astro:after-swap', aplicar);
+        const guardado = localStorage.getItem('tema');
+        const claro = guardado ? guardado === 'light' : matchMedia('(prefers-color-scheme: light)').matches;
+        document.documentElement.classList.toggle('dark', !claro);
       })();
     </script>
-    <ClientRouter />
   </head>
   <body class="flex min-h-dvh flex-col">
     <a
@@ -53,7 +49,13 @@ const t = usarTraducciones(idioma);
       <slot />
     </main>
     <Footer />
-    <Analytics />
-    <SpeedInsights />
+    {
+      enVercel && (
+        <>
+          <Analytics />
+          <SpeedInsights />
+        </>
+      )
+    }
   </body>
 </html>

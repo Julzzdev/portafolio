@@ -7,7 +7,9 @@ export type Post = CollectionEntry<'blog'>;
 
 export async function getProyectos(idioma: Idioma) {
   const proyectos = await getCollection('projects', ({ id }) => separarId(id).idioma === idioma);
-  return proyectos.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  return proyectos.sort(
+    (a, b) => a.data.order - b.data.order || b.data.date.valueOf() - a.data.date.valueOf(),
+  );
 }
 
 export async function getPosts(idioma?: Idioma) {

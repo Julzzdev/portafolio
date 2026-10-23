@@ -1,0 +1,23 @@
+---
+title: Frontend Template Generator
+description: Node.js CLI that scaffolds ready-to-use React or Vue projects with Vite and Tailwind CSS from templates and interactive prompts.
+date: 2023-09-07
+stack: [Node.js, CLI, Inquirer, Vite, React, Vue, Tailwind CSS]
+cover: ../_portadas/template-generator.svg
+coverAlt: Terminal running the generator next to the generated project's file tree
+repos:
+  - { nombre: GitHub, url: 'https://github.com/Julzzdev/frontend-template-generator' }
+order: 5
+accent: '#a78bfa'
+---
+
+## The challenge
+
+Starting every frontend project meant repeating the same Vite, Tailwind and ESLint setup.
+
+## The solution
+
+- **Node.js CLI** (ES Modules) registered as a `generate` command through the `bin` field in `package.json`.
+- Interactive prompts with **Inquirer**: pick a template and a project name, with name validation.
+- Recursive copy of the chosen template: **Vite + React + Tailwind** or **Vite + Vue + Tailwind**.
+- Adding a new template is as simple as creating a folder in `templates/`: the menu is built by reading that directory.

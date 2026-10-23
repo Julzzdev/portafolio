@@ -23,7 +23,7 @@ export async function getStaticPaths() {
 const { proyecto, alternos } = Astro.props;
 const { idioma } = separarId(proyecto.id);
 const t = usarTraducciones(idioma);
-const { title, description, stack, cover, coverAlt, repo, demo, date, accent } = proyecto.data;
+const { title, description, stack, cover, coverAlt, repos, demo, date, accent } = proyecto.data;
 const { Content } = await render(proyecto);
 ---
 
@@ -42,7 +42,7 @@ const { Content } = await render(proyecto);
       inLanguage: idiomas[idioma].bcp47,
       keywords: stack.join(', '),
       url: new URL(Astro.url.pathname, Astro.site).href,
-      ...(repo && { codeRepository: repo }),
+      ...(repos.length > 0 && { codeRepository: repos.map((r) => r.url) }),
       author: personaLd(Astro.site!),
     },
   ]}
@@ -56,10 +56,14 @@ const { Content } = await render(proyecto);
         {stack.map((tec) => <li class="rounded-full border border-borde px-3 py-1 font-mono text-xs" style={`border-color: ${accent}55`}>{tec}</li>)}
       </ul>
       {
-        (demo || repo) && (
+        (demo || repos.length > 0) && (
           <div class="mt-6 flex flex-wrap gap-3">
             {demo && <BotonLink href={demo} externo>{t('proyectos.demo')} ↗</BotonLink>}
-            {repo && <BotonLink href={repo} externo variante="secundario">{t('proyectos.repo')} ↗</BotonLink>}
+            {repos.map((r) => (
+              <BotonLink href={r.url} externo variante="secundario">
+                {repos.length > 1 ? r.nombre : t('proyectos.repo')} ↗
+              </BotonLink>
+            ))}
           </div>
         )
       }

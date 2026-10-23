@@ -6,6 +6,7 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
+import cabecerasSeguridad from './integraciones/cabeceras-seguridad.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,6 +14,8 @@ export default defineConfig({
   site: 'https://julioolvera.dev',
   output: 'static',
   trailingSlash: 'ignore',
+  // Antes lo activaba <ClientRouter />; ahora se precargan los enlaces al pasar el cursor
+  prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   i18n: {
     locales: ['es', 'en'],
     defaultLocale: 'es',
@@ -34,6 +37,7 @@ export default defineConfig({
         locales: { es: 'es-MX', en: 'en-US' },
       },
     }),
+    cabecerasSeguridad(),
   ],
   adapter: vercel(),
   markdown: {

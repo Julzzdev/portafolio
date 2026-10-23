@@ -12,9 +12,12 @@ const projects = defineCollection({
       stack: z.array(z.string()).min(1),
       cover: image().optional(),
       coverAlt: z.string().optional(),
-      repo: z.url().optional(),
+      // Un proyecto puede tener varios repos (p. ej. backend y frontend)
+      repos: z.array(z.object({ nombre: z.string(), url: z.url() })).default([]),
       demo: z.url().optional(),
       featured: z.boolean().default(false),
+      // Posición en las listas (menor = primero); a igual orden, el más reciente primero
+      order: z.number().default(99),
       // Color de acento en hex (#rrggbb); se le agregan canales alfa en las tarjetas
       accent: z.string().regex(/^#[0-9a-f]{6}$/i).default('#7c5cff'),
     }),

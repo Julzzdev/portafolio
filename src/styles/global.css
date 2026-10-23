@@ -41,6 +41,13 @@
   --animate-flotar: flotar 9s ease-in-out infinite;
 }
 
+/* Transiciones nativas entre páginas (sin JS); los navegadores sin soporte navegan normal */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
 @keyframes flotar {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
   50% { transform: translate3d(0, -18px, 0) scale(1.05); }

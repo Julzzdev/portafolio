@@ -1,0 +1,27 @@
+---
+title: Lab Results System
+description: Full stack platform to capture clinical lab results, render PDF reports with Puppeteer and email them to patients. NestJS, Angular and MongoDB.
+date: 2022-08-09
+stack: [NestJS, TypeScript, Angular, MongoDB, Puppeteer, Docker]
+cover: ../_portadas/labresults.svg
+coverAlt: Illustration of a complete blood count report with its generated PDF and an email delivery confirmation
+repos:
+  - { nombre: Backend, url: 'https://github.com/Julzzdev/labresults-backend' }
+  - { nombre: Frontend, url: 'https://github.com/Julzzdev/labresults-frontend' }
+featured: true
+order: 1
+accent: '#14b8a6'
+---
+
+## The challenge
+
+A clinical lab needed to stop assembling reports by hand: capture each test's results, produce a professionally formatted document and deliver it to the patient with no manual steps.
+
+## The solution
+
+- **NestJS + MongoDB (Mongoose) API**, organized into patients, test templates, reports, contacts, users and mailer modules.
+- **JWT authentication** (Passport), guards and a serialization interceptor so responses never leak sensitive fields.
+- **Test templates** with parameters and reference ranges, so every result is captured against its normal range.
+- **A4 PDF reports** rendered with **Puppeteer** and emailed with **Nodemailer**.
+- **Angular + Angular Material frontend** with views for patients, tests, templates, reports, users and settings.
+- **Docker** and docker-compose for both services, with Nginx serving the frontend.

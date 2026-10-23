@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <linearGradient id="fondo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#0f2a36"/>
+    </linearGradient>
+    <radialGradient id="brillo" cx="0.85" cy="0.1" r="0.7">
+      <stop offset="0" stop-color="#14b8a6" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#14b8a6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sombra" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#fondo)"/>
+  <rect width="1600" height="900" fill="url(#brillo)"/>
+
+  <!-- Ventana de la app -->
+  <g filter="url(#sombra)">
+    <rect x="150" y="110" width="900" height="680" rx="22" fill="#111827" stroke="#1f2937"/>
+    <rect x="150" y="110" width="900" height="56" rx="22" fill="#1f2937"/>
+    <rect x="150" y="140" width="900" height="26" fill="#1f2937"/>
+    <circle cx="190" cy="138" r="8" fill="#ef4444"/><circle cx="218" cy="138" r="8" fill="#f59e0b"/><circle cx="246" cy="138" r="8" fill="#22c55e"/>
+    <text x="600" y="145" fill="#9ca3af" font-size="20" text-anchor="middle">Lab Results · Reports</text>
+
+    <text x="200" y="230" fill="#f9fafb" font-size="38" font-weight="700">Complete Blood Count</text>
+    <text x="200" y="268" fill="#9ca3af" font-size="20">Patient #A-1042 · Captured by: Lab technician</text>
+
+    <rect x="200" y="300" width="800" height="56" rx="10" fill="#1f2937"/>
+    <text x="230" y="336" fill="#9ca3af" font-size="20" font-weight="600">Parameter</text>
+    <text x="560" y="336" fill="#9ca3af" font-size="20" font-weight="600">Reference</text>
+    <text x="840" y="336" fill="#9ca3af" font-size="20" font-weight="600">Result</text>
+
+    <g font-size="22" fill="#e5e7eb">
+      <text x="230" y="404">Hemoglobin</text><text x="560" y="404" fill="#9ca3af">12.0 – 16.0 g/dL</text>
+      <rect x="830" y="378" width="140" height="38" rx="8" fill="#0f766e" fill-opacity="0.35"/><text x="850" y="404" fill="#5eead4" font-weight="700">14.2</text>
+      <line x1="200" y1="432" x2="1000" y2="432" stroke="#1f2937"/>
+      <text x="230" y="478">Glucose</text><text x="560" y="478" fill="#9ca3af">70 – 100 mg/dL</text>
+      <rect x="830" y="452" width="140" height="38" rx="8" fill="#0f766e" fill-opacity="0.35"/><text x="850" y="478" fill="#5eead4" font-weight="700">92</text>
+      <line x1="200" y1="506" x2="1000" y2="506" stroke="#1f2937"/>
+      <text x="230" y="552">White blood cells</text><text x="560" y="552" fill="#9ca3af">4.5 – 11.0 ×10³/µL</text>
+      <rect x="830" y="526" width="140" height="38" rx="8" fill="#0f766e" fill-opacity="0.35"/><text x="850" y="552" fill="#5eead4" font-weight="700">7.1</text>
+      <line x1="200" y1="580" x2="1000" y2="580" stroke="#1f2937"/>
+      <text x="230" y="626">Platelets</text><text x="560" y="626" fill="#9ca3af">150 – 450 ×10³/µL</text>
+      <rect x="830" y="600" width="140" height="38" rx="8" fill="#b45309" fill-opacity="0.35"/><text x="850" y="626" fill="#fcd34d" font-weight="700">462</text>
+    </g>
+
+    <rect x="760" y="690" width="240" height="56" rx="28" fill="#14b8a6"/>
+    <text x="880" y="726" fill="#042f2e" font-size="22" font-weight="700" text-anchor="middle">Send results</text>
+  </g>
+
+  <!-- PDF generado -->
+  <g filter="url(#sombra)" transform="rotate(6 1250 380)">
+    <rect x="1110" y="190" width="290" height="380" rx="16" fill="#f9fafb"/>
+    <path d="M1340 190 h44 a16 16 0 0 1 16 16 v44 z" fill="#e5e7eb"/>
+    <rect x="1140" y="226" width="80" height="34" rx="6" fill="#dc2626"/>
+    <text x="1180" y="250" fill="#fff" font-size="20" font-weight="800" text-anchor="middle">PDF</text>
+    <rect x="1140" y="286" width="220" height="14" rx="7" fill="#d1d5db"/>
+    <rect x="1140" y="316" width="180" height="14" rx="7" fill="#e5e7eb"/>
+    <rect x="1140" y="362" width="230" height="10" rx="5" fill="#e5e7eb"/>
+    <rect x="1140" y="386" width="230" height="10" rx="5" fill="#e5e7eb"/>
+    <rect x="1140" y="410" width="200" height="10" rx="5" fill="#e5e7eb"/>
+    <rect x="1140" y="434" width="230" height="10" rx="5" fill="#e5e7eb"/>
+    <rect x="1140" y="458" width="170" height="10" rx="5" fill="#e5e7eb"/>
+    <text x="1140" y="530" fill="#6b7280" font-size="18">A4 · Puppeteer</text>
+  </g>
+
+  <!-- Correo enviado -->
+  <g filter="url(#sombra)">
+    <rect x="1120" y="620" width="320" height="110" rx="20" fill="#111827" stroke="#14b8a6" stroke-opacity="0.6"/>
+    <rect x="1148" y="652" width="64" height="46" rx="8" fill="none" stroke="#5eead4" stroke-width="4"/>
+    <path d="M1150 656 l30 24 l30 -24" fill="none" stroke="#5eead4" stroke-width="4" stroke-linejoin="round"/>
+    <text x="1232" y="668" fill="#f9fafb" font-size="22" font-weight="700">Emailed to patient</text>
+    <text x="1232" y="698" fill="#9ca3af" font-size="18">Nodemailer · SMTP</text>
+  </g>
+
+  <!-- Stack -->
+  <g font-size="20" font-weight="600">
+    <rect x="150" y="820" width="132" height="44" rx="22" fill="#e0234e" fill-opacity="0.18" stroke="#e0234e" stroke-opacity="0.6"/><text x="216" y="849" fill="#fda4af" text-anchor="middle">NestJS</text>
+    <rect x="296" y="820" width="132" height="44" rx="22" fill="#dd0031" fill-opacity="0.18" stroke="#dd0031" stroke-opacity="0.6"/><text x="362" y="849" fill="#fca5a5" text-anchor="middle">Angular</text>
+    <rect x="442" y="820" width="140" height="44" rx="22" fill="#47a248" fill-opacity="0.18" stroke="#47a248" stroke-opacity="0.6"/><text x="512" y="849" fill="#86efac" text-anchor="middle">MongoDB</text>
+    <rect x="596" y="820" width="124" height="44" rx="22" fill="#2496ed" fill-opacity="0.18" stroke="#2496ed" stroke-opacity="0.6"/><text x="658" y="849" fill="#93c5fd" text-anchor="middle">Docker</text>
+  </g>
+</svg>

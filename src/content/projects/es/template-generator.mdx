@@ -1,0 +1,23 @@
+---
+title: Generador de plantillas frontend
+description: CLI en Node.js que crea proyectos React o Vue con Vite y Tailwind CSS listos para usar, a partir de plantillas y preguntas interactivas.
+date: 2023-09-07
+stack: [Node.js, CLI, Inquirer, Vite, React, Vue, Tailwind CSS]
+cover: ../_portadas/template-generator.svg
+coverAlt: Terminal ejecutando el generador y el árbol de archivos del proyecto creado
+repos:
+  - { nombre: GitHub, url: 'https://github.com/Julzzdev/frontend-template-generator' }
+order: 5
+accent: '#a78bfa'
+---
+
+## El reto
+
+Empezar cada proyecto frontend implicaba repetir la misma configuración de Vite, Tailwind y ESLint.
+
+## La solución
+
+- **CLI en Node.js** (ES Modules) que se registra como comando `generate` mediante el campo `bin` de `package.json`.
+- Preguntas interactivas con **Inquirer**: elegir plantilla y nombre del proyecto, con validación del nombre.
+- Copia recursiva de la plantilla elegida: **Vite + React + Tailwind** o **Vite + Vue + Tailwind**.
+- Agregar una plantilla nueva es tan simple como crear una carpeta en `templates/`: el menú se arma leyendo ese directorio.
