@@ -1,0 +1,30 @@
+---
+title: AI Insurance Policy Extractor
+description: API that turns auto insurance policy PDFs into validated JSON, combining per-insurer rules with Claude (tool use) only for the missing data.
+date: 2026-10-14
+stack: [Python, FastAPI, Claude API, Pydantic, pypdfium2, pytest]
+cover: ../_portadas/pdf-policies-extractor.svg
+coverAlt: Illustration of a PDF policy going through rules, validations and Claude until it becomes JSON
+featured: true
+order: 2
+accent: '#d97757'
+---
+
+## The challenge
+
+Manually capturing data from hundreds of policies from different insurers (policy number, term, premiums, insured party, agent…) is slow and error-prone. Sending every full PDF to an AI model solves it, but it's costly and unnecessary for known formats.
+
+## The solution
+
+A **hybrid, rules-first architecture**:
+
+1. **Per-insurer rules**: detects which company issued the policy and extracts fields with templates for five insurers.
+2. **Business validations**: checks that amounts add up (net premium + fees + surcharges − discounts + tax = total), dates and the insured's name, and flags missing or doubtful fields.
+3. **Claude only for what's left**: requests just those fields via **tool use with a forced `tool_choice`** and a JSON schema generated from **Pydantic**. To save tokens it sends only the text of the relevant pages plus the values already extracted; for unknown insurers it sends the full text, and the PDF as a document only when it's scanned and has no text layer.
+
+Also:
+
+- **FastAPI** with a single-file endpoint and **batch processing** (up to 50 PDFs) streamed as **NDJSON**, with parallel AI calls under a concurrency limit.
+- Every response reports the **method used** (rules, AI or both), warnings and tokens consumed.
+- **Golden tests** comparing the AI against verified values, plus rule and batch tests.
+- API key authentication with constant-time comparison, deployed on Render.

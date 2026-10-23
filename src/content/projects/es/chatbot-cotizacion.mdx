@@ -1,0 +1,22 @@
+---
+title: Chatbot de cotización por WhatsApp
+description: Bot de WhatsApp que guía al usuario por la cotización de un seguro de auto. El servidor define el flujo y el bot entiende respuestas escritas libremente.
+date: 2026-10-20
+stack: [TypeScript, Fastify, WhatsApp Cloud API, Drizzle ORM, PostgreSQL, Vitest]
+cover: ../_portadas/chatbot-cotizacion.svg
+coverAlt: Ilustración de un chat en el teléfono cotizando un seguro de auto junto al contrato JSON que define el siguiente paso
+order: 5
+accent: '#22c55e'
+---
+
+## El reto
+
+Cotizar un seguro de auto exige varios datos encadenados (año → marca → modelo → versión → código postal → edad → género) y cada opción depende de la anterior. Llevar ese formulario a WhatsApp sin duplicar la lógica de negocio en el bot era el punto clave.
+
+## La solución
+
+- **El bot no conoce el formulario**: en cada paso envía lo acumulado y el servidor responde qué campo sigue, con qué opciones o si hubo un error. Así el flujo cambia sin tocar el bot.
+- **Presentación adaptativa**: hasta tres opciones cortas se muestran como botones; más opciones, como lista interactiva paginada; también hay categorías agrupadas.
+- **Texto libre**: además de tocar opciones, el usuario puede escribir ("focus se aut") y un *matcher* encuentra la opción correcta. Comandos para volver atrás o reiniciar.
+- **Catálogo de vehículos en cascada** desde un servicio externo, con caché configurable, y un mock interno para desarrollo.
+- **Fastify + Drizzle ORM** con sesiones en PostgreSQL (o en memoria en local), un modo de chat en la terminal para probar sin WhatsApp y pruebas con **Vitest**.

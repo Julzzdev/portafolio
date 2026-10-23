@@ -1,0 +1,22 @@
+---
+title: WhatsApp Quote Chatbot
+description: WhatsApp bot that guides users through an auto insurance quote. The server drives the flow and the bot understands free-text answers.
+date: 2026-10-20
+stack: [TypeScript, Fastify, WhatsApp Cloud API, Drizzle ORM, PostgreSQL, Vitest]
+cover: ../_portadas/chatbot-cotizacion.svg
+coverAlt: Illustration of a phone chat quoting auto insurance next to the JSON contract that defines the next step
+order: 5
+accent: '#22c55e'
+---
+
+## The challenge
+
+An auto insurance quote needs several chained inputs (year → make → model → trim → ZIP code → age → gender), and each option depends on the previous one. The key was bringing that form to WhatsApp without duplicating business logic in the bot.
+
+## The solution
+
+- **The bot doesn't know the form**: at each step it sends what it has collected and the server replies with the next field, its options or an error. The flow can change without touching the bot.
+- **Adaptive UI**: up to three short options render as buttons; more options as a paginated interactive list; grouped categories are supported too.
+- **Free text**: besides tapping options, users can type ("focus se aut") and a *matcher* finds the right option. Commands to go back or restart.
+- **Cascading vehicle catalog** from an external service with configurable caching, plus an internal mock for development.
+- **Fastify + Drizzle ORM** with sessions in PostgreSQL (or in memory locally), a terminal chat mode to test without WhatsApp, and **Vitest** tests.

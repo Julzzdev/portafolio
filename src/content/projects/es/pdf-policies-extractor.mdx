@@ -1,0 +1,30 @@
+---
+title: Extractor de pólizas con IA
+description: API que convierte pólizas de seguro de auto en PDF a JSON validado, combinando reglas por aseguradora con Claude (tool use) sólo para los datos que faltan.
+date: 2026-10-14
+stack: [Python, FastAPI, Claude API, Pydantic, pypdfium2, pytest]
+cover: ../_portadas/pdf-policies-extractor.svg
+coverAlt: Ilustración de una póliza en PDF que pasa por reglas, validaciones y Claude hasta convertirse en un JSON
+featured: true
+order: 2
+accent: '#d97757'
+---
+
+## El reto
+
+Capturar a mano los datos de cientos de pólizas de distintas aseguradoras (número, vigencia, primas, asegurado, agente…) es lento y propenso a errores. Mandar cada PDF completo a un modelo de IA resuelve el problema, pero es caro e innecesario para formatos conocidos.
+
+## La solución
+
+Una arquitectura **híbrida, primero las reglas y luego la IA**:
+
+1. **Reglas por aseguradora**: detecta de qué compañía es la póliza y extrae los campos con plantillas específicas para cinco aseguradoras.
+2. **Validaciones de negocio**: comprueba que los montos cuadren (prima neta + derechos + recargos − descuentos + IVA = total), las fechas y el nombre del asegurado, y marca qué campos faltan o son dudosos.
+3. **Claude sólo para lo pendiente**: le pide únicamente esos campos mediante **tool use con `tool_choice` forzado** y un esquema JSON generado desde **Pydantic**. Para ahorrar tokens envía sólo el texto de las páginas relevantes junto con los valores ya extraídos; si la aseguradora es desconocida manda el texto completo, y el PDF como documento sólo cuando está escaneado y no tiene capa de texto.
+
+Además:
+
+- **FastAPI** con endpoint individual y **procesamiento por lotes** (hasta 50 PDF) con respuesta en streaming **NDJSON** y llamadas a la IA en paralelo con límite de concurrencia.
+- Cada respuesta indica el **método usado** (reglas, IA o ambos), advertencias y tokens consumidos.
+- **Pruebas de referencia** (*golden tests*) que comparan la IA contra valores verificados, además de pruebas de reglas y de lotes.
+- Autenticación por API key con comparación en tiempo constante y despliegue en Render.

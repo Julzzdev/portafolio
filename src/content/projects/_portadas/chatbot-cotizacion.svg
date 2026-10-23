@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <linearGradient id="fondo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06201a"/>
+      <stop offset="1" stop-color="#0b3b2e"/>
+    </linearGradient>
+    <radialGradient id="brillo" cx="0.3" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#25d366" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#25d366" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sombra" x="-15%" y="-10%" width="130%" height="125%">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <clipPath id="pantalla"><rect x="262" y="96" width="396" height="708" rx="40"/></clipPath>
+  </defs>
+  <rect width="1600" height="900" fill="url(#fondo)"/>
+  <rect width="1600" height="900" fill="url(#brillo)"/>
+
+  <!-- Teléfono -->
+  <g filter="url(#sombra)">
+    <rect x="246" y="80" width="428" height="740" rx="56" fill="#0f172a"/>
+  </g>
+  <g clip-path="url(#pantalla)">
+    <rect x="262" y="96" width="396" height="708" fill="#efe7dc"/>
+    <rect x="262" y="96" width="396" height="92" fill="#075e54"/>
+    <circle cx="310" cy="150" r="22" fill="#d1fae5"/>
+    <path d="M298 156 h24 l-3 -9 h-18 z M300 156 v6 M320 156 v6" stroke="#075e54" stroke-width="3" fill="none" stroke-linejoin="round"/>
+    <text x="346" y="146" fill="#ffffff" font-size="19" font-weight="700">Cotizador de autos</text>
+    <text x="346" y="170" fill="#b7e4d9" font-size="14">en línea</text>
+
+    <g font-size="16">
+      <!-- bot -->
+      <rect x="280" y="210" width="290" height="70" rx="12" fill="#ffffff"/>
+      <text x="294" y="240" fill="#111b21">¡Hola! Cotiza tu seguro en</text>
+      <text x="294" y="264" fill="#111b21">un minuto. ¿Año del auto?</text>
+      <rect x="280" y="288" width="92" height="38" rx="10" fill="#ffffff"/><text x="326" y="313" fill="#00a884" text-anchor="middle" font-weight="600">2015</text>
+      <rect x="380" y="288" width="92" height="38" rx="10" fill="#ffffff"/><text x="426" y="313" fill="#00a884" text-anchor="middle" font-weight="600">2014</text>
+      <rect x="480" y="288" width="92" height="38" rx="10" fill="#ffffff"/><text x="526" y="313" fill="#00a884" text-anchor="middle" font-weight="600">2013</text>
+      <!-- usuario -->
+      <rect x="560" y="342" width="82" height="42" rx="12" fill="#d9fdd3"/>
+      <text x="578" y="369" fill="#111b21">2013</text>
+      <!-- bot lista -->
+      <rect x="280" y="400" width="260" height="96" rx="12" fill="#ffffff"/>
+      <text x="294" y="430" fill="#111b21">¿Cuál es la versión?</text>
+      <line x1="280" y1="448" x2="540" y2="448" stroke="#e9edef"/>
+      <text x="410" y="478" fill="#00a884" text-anchor="middle" font-weight="600">☰ Ver opciones</text>
+      <!-- usuario texto libre -->
+      <rect x="474" y="512" width="168" height="42" rx="12" fill="#d9fdd3"/>
+      <text x="490" y="539" fill="#111b21">focus se aut</text>
+      <!-- bot confirma -->
+      <rect x="280" y="570" width="320" height="94" rx="12" fill="#ffffff"/>
+      <text x="294" y="600" fill="#111b21">Encontré:</text>
+      <text x="294" y="626" fill="#111b21" font-weight="700">FOCUS SE AUT 4P</text>
+      <text x="294" y="650" fill="#667781" font-size="14">¿Es correcto?</text>
+      <rect x="280" y="672" width="156" height="38" rx="10" fill="#ffffff"/><text x="358" y="697" fill="#00a884" text-anchor="middle" font-weight="600">Sí</text>
+      <rect x="444" y="672" width="156" height="38" rx="10" fill="#ffffff"/><text x="522" y="697" fill="#00a884" text-anchor="middle" font-weight="600">No</text>
+    </g>
+    <rect x="262" y="740" width="396" height="64" fill="#f0f2f5"/>
+    <rect x="280" y="752" width="300" height="40" rx="20" fill="#ffffff"/>
+    <text x="300" y="778" fill="#8696a0" font-size="15">Mensaje</text>
+    <circle cx="616" cy="772" r="22" fill="#00a884"/>
+  </g>
+
+  <!-- Contrato del formulario -->
+  <g filter="url(#sombra)" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">
+    <rect x="780" y="150" width="680" height="430" rx="20" fill="#0d1117" stroke="#30363d"/>
+    <text x="812" y="198" fill="#8b949e" font-size="15" font-family="Inter, -apple-system, sans-serif" font-weight="600" letter-spacing="2">CONTRATO · EL SERVIDOR DECIDE EL SIGUIENTE CAMPO</text>
+    <text x="812" y="248"><tspan fill="#7ee787">bot →</tspan><tspan fill="#e6edf3"> POST { anio: 2013, marca: "FORD" }</tspan></text>
+    <text x="812" y="296"><tspan fill="#d2a8ff">app →</tspan><tspan fill="#e6edf3"> {</tspan></text>
+    <text x="852" y="330"><tspan fill="#79c0ff">status</tspan><tspan fill="#e6edf3">: </tspan><tspan fill="#a5d6ff">"next"</tspan><tspan fill="#e6edf3">,</tspan></text>
+    <text x="852" y="364"><tspan fill="#79c0ff">field</tspan><tspan fill="#e6edf3">: { </tspan><tspan fill="#79c0ff">key</tspan><tspan fill="#e6edf3">: </tspan><tspan fill="#a5d6ff">"modelo"</tspan><tspan fill="#e6edf3">,</tspan></text>
+    <text x="1004" y="398"><tspan fill="#79c0ff">type</tspan><tspan fill="#e6edf3">: </tspan><tspan fill="#a5d6ff">"select"</tspan><tspan fill="#e6edf3">,</tspan></text>
+    <text x="1004" y="432"><tspan fill="#79c0ff">options</tspan><tspan fill="#e6edf3">: [ … ] }</tspan></text>
+    <text x="812" y="466" fill="#e6edf3">}</text>
+    <text x="812" y="524" fill="#8b949e" font-size="16">≤3 opciones → botones · más → lista paginada</text>
+  </g>
+
+  <!-- Stack -->
+  <g font-size="20" font-weight="600">
+    <rect x="780" y="630" width="128" height="44" rx="22" fill="#ffffff" fill-opacity="0.08" stroke="#e6edf3" stroke-opacity="0.5"/><text x="844" y="659" fill="#e6edf3" text-anchor="middle">Fastify</text>
+    <rect x="922" y="630" width="160" height="44" rx="22" fill="#3178c6" fill-opacity="0.2" stroke="#3178c6" stroke-opacity="0.8"/><text x="1002" y="659" fill="#93c5fd" text-anchor="middle">TypeScript</text>
+    <rect x="1096" y="630" width="196" height="44" rx="22" fill="#c5f74f" fill-opacity="0.12" stroke="#c5f74f" stroke-opacity="0.6"/><text x="1194" y="659" fill="#d9f99d" text-anchor="middle">Drizzle · Neon</text>
+    <rect x="1306" y="630" width="112" height="44" rx="22" fill="#729b1b" fill-opacity="0.2" stroke="#729b1b" stroke-opacity="0.8"/><text x="1362" y="659" fill="#bef264" text-anchor="middle">Vitest</text>
+  </g>
+</svg>

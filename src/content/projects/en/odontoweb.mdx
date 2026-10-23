@@ -1,0 +1,25 @@
+---
+title: OdontoWeb · SaaS for dental clinics
+description: Multi-clinic SaaS for dental practices with scheduling, clinical records with a dental chart, team roles, automated reminders and web bookings.
+date: 2026-10-13
+stack: [React Router 7, TypeScript, Supabase, PostgreSQL, Zod, Tailwind CSS, Docker]
+cover: ../_portadas/odontoweb.svg
+coverAlt: Illustration of a clinic's weekly schedule with appointments per dentist, a dental chart and a sent-reminder notification
+featured: true
+order: 1
+accent: '#a855f7'
+---
+
+## The challenge
+
+Small dental clinics often keep their schedule on paper or spreadsheets and their clinical records in printed forms. They needed a single cloud tool each clinic could subscribe to based on its needs.
+
+## The solution
+
+- **Multi-clinic SaaS** on **Supabase (PostgreSQL)**: each clinic only sees its own data thanks to **Row Level Security**, and each plan unlocks modules by tier (the same function gates access in the database and in the UI).
+- **Team roles** (admin and dentist), per-plan member limits and email invitations.
+- **Step-by-step clinical records** validated with **Zod + React Hook Form**, with diagnosis and progress **dental charts** and version history.
+- **Scheduling** color-coded per dentist, **appointment requests from the clinic's website** and a public page where patients confirm their appointment.
+- **Automated email reminders** via an Edge Function scheduled with `pg_cron`.
+- **Per-clinic branding**: name, logo and colors applied to the app theme.
+- **React Router 7 in framework mode (SSR)**, feature-based architecture (domain, server and UI kept apart) and **Docker** deployment.
