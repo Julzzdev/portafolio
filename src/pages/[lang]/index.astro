@@ -32,8 +32,9 @@ const site = Astro.site!;
   <!-- Hero -->
   <section class="relative isolate overflow-hidden">
     <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
-      <div class="absolute -top-32 left-1/2 size-[36rem] -translate-x-1/2 rounded-full bg-acento/20 blur-3xl animate-flotar lg:left-3/4"></div>
-      <div class="absolute top-40 -left-24 size-[24rem] rounded-full bg-acento-2/15 blur-3xl animate-flotar [animation-delay:-4s]"></div>
+      <!-- Gradiente radial en vez de blur(): se pinta una vez y no castiga a equipos sin GPU -->
+      <div class="absolute -top-32 left-1/2 size-[36rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--acento)_30%,transparent),transparent)] lg:left-3/4 lg:animate-flotar"></div>
+      <div class="absolute top-40 -left-24 size-[24rem] rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--acento-2)_22%,transparent),transparent)] [animation-delay:-4s] lg:animate-flotar"></div>
       <div class="absolute inset-0 bg-[linear-gradient(to_right,var(--borde)_1px,transparent_1px),linear-gradient(to_bottom,var(--borde)_1px,transparent_1px)] bg-[size:56px_56px] opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]"></div>
     </div>
 
