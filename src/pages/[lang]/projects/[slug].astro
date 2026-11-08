@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import Base from '../../../layouts/Base.astro';
 import Encabezado from '../../../components/Encabezado.astro';
 import BotonLink from '../../../components/BotonLink.astro';
+import Flecha from '../../../components/Flecha.astro';
 import { idiomasDisponibles } from '../../../lib/contenido';
 import { personaLd } from '../../../lib/schema';
 import { ruta, separarId, usarTraducciones } from '../../../i18n/utils';
@@ -23,12 +24,12 @@ export async function getStaticPaths() {
 const { proyecto, alternos } = Astro.props;
 const { idioma } = separarId(proyecto.id);
 const t = usarTraducciones(idioma);
-const { title, description, stack, cover, coverAlt, repos, demo, date, accent } = proyecto.data;
+const { title, description, stack, cover, coverAlt, repos, demo, date, estado, anden } = proyecto.data;
 const { Content } = await render(proyecto);
 ---
 
 <Base
-  titulo={`${title} · Julio Olvera`}
+  titulo={`${title} · Julzz Labs`}
   descripcion={description}
   tipo="article"
   alternos={alternos}
@@ -49,19 +50,20 @@ const { Content } = await render(proyecto);
 >
   <article>
     <Encabezado titulo={title} descripcion={description}>
-      <a slot="antes" href={ruta(idioma, 'projects')} class="mb-6 inline-block text-sm text-tinta-suave hover:text-tinta">
-        ← {t('proyectos.volver')}
+      <a slot="antes" href={ruta(idioma, 'projects')} class="mb-6 inline-block font-semibold text-tinta-suave hover:text-tinta">
+        <Flecha dir="atras" /> {t('proyectos.volver')}
       </a>
-      <ul class="mt-6 flex flex-wrap gap-2">
-        {stack.map((tec) => <li class="rounded-full border border-borde px-3 py-1 font-mono text-xs" style={`border-color: ${accent}55`}>{tec}</li>)}
+      <p class="mt-6"><span class="sello">{t(`estado.${estado}`)}</span></p>
+      <ul class="mt-5 flex flex-wrap gap-2">
+        {stack.map((tec) => <li class="rounded-[3px] border border-borde px-3 py-1 font-mono text-xs">{tec}</li>)}
       </ul>
       {
         (demo || repos.length > 0) && (
           <div class="mt-6 flex flex-wrap gap-3">
-            {demo && <BotonLink href={demo} externo>{t('proyectos.demo')} ↗</BotonLink>}
+            {demo && <BotonLink href={demo} externo>{t('proyectos.demo')} <Flecha dir="externo" /></BotonLink>}
             {repos.map((r) => (
               <BotonLink href={r.url} externo variante="secundario">
-                {repos.length > 1 ? r.nombre : t('proyectos.repo')} ↗
+                {repos.length > 1 ? r.nombre : t('proyectos.repo')} <Flecha dir="externo" />
               </BotonLink>
             ))}
           </div>
@@ -71,13 +73,14 @@ const { Content } = await render(proyecto);
 
     {
       cover && (
-        <div class="mx-auto mt-8 max-w-6xl px-5">
-          <Image src={cover} alt={coverAlt ?? title} widths={[800, 1200, 1600]} sizes="(min-width: 1152px) 1152px, 100vw" loading="eager" fetchpriority="high" class="w-full rounded-3xl border border-borde" />
+        <div class="mx-auto mt-8 max-w-6xl px-4 sm:px-8">
+          <Image src={cover} alt={coverAlt ?? title} widths={[800, 1200, 1600]} sizes="(min-width: 1152px) 1152px, 100vw" loading="eager" fetchpriority="high" class="w-full rounded-[3px]" />
+          {anden === 'producto' && <p class="mt-2 text-sm text-tinta-suave">{t('proyectos.ilustracion')}</p>}
         </div>
       )
     }
 
-    <div class="prose prose-zinc dark:prose-invert mx-auto max-w-3xl px-5 py-12 prose-headings:tracking-tight prose-a:text-acento">
+    <div class="prose prose-zinc dark:prose-invert mx-auto max-w-3xl px-5 py-12 prose-headings:font-display prose-headings:uppercase prose-headings:font-extrabold prose-a:text-acento">
       <Content />
     </div>
   </article>

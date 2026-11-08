@@ -1,4 +1,4 @@
-# Portafolio · Julio Olvera
+# Julzz Labs · Portafolio de Julio Olvera
 
 Portafolio bilingüe (ES/EN) hecho con **Astro 7 + React islands + Tailwind CSS v4**, desplegado en **Vercel**.
 
@@ -23,13 +23,15 @@ npm run build    # salida en .vercel/output
 | Trayectoria / educación | `src/data/experiencia.ts` |
 | Textos de la interfaz | `src/i18n/ui.ts` |
 | Colores y tipografías | `src/styles/global.css` |
-| Escena 3D del hero | `src/components/islands/Hero3D.tsx` |
+| Tablero del inicio y sección de Kirei | `src/pages/[lang]/index.astro`, `src/data/kirei.ts` |
+| Enlace a la landing de Kirei | `sitio.kirei.landing` en `src/config/sitio.ts` |
+| Renglón de cada proyecto en el tablero | `corto`, `para`, `anden` y `estado` en el frontmatter del `.mdx` |
 
 Los datos provisionales están marcados con `TODO`. Para añadir portada a un proyecto, coloca la imagen junto al `.mdx` y usa `cover: ./portada.png` y `coverAlt` en el frontmatter.
 
 ## SEO incluido
 
-- HTML estático; React sólo en islas (`RoleRotator`, `ContactForm`, `Hero3DLoader`). Three.js sólo se descarga en escritorio y sin `prefers-reduced-motion`.
+- HTML estático; React sólo en la isla `ContactForm`. El tablero usa CSS y un script mínimo.
 - `hreflang` + `x-default`, canonical, Open Graph/Twitter, JSON-LD (`Person`, `WebSite`, `CreativeWork`, `BlogPosting`).
 - Imagen OG por página generada en build (`src/pages/og/[...slug].png.ts`), sitemap con i18n, RSS por idioma (`/es/rss.xml`), `robots.txt`.
 

@@ -1,0 +1,41 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import Paletas from './Paletas.astro';
+import type { Proyecto } from '../lib/contenido';
+import { usarTraducciones } from '../i18n/utils';
+import type { Idioma } from '../i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+  proyectos: Proyecto[];
+  /** Nivel de los títulos de andén. */
+  nivel?: 'h2' | 'h3';
+}
+const { idioma, proyectos, nivel: Titulo = 'h3' } = Astro.props;
+const t = usarTraducciones(idioma);
+const nivelBoleto = Titulo === 'h2' ? 'h3' : 'h4';
+const andenes = [
+  { id: 'producto', numero: 1 },
+  { id: 'medida', numero: 2 },
+  { id: 'experimento', numero: 3 },
+] as const;
+---
+
+<div class="grid gap-16">
+  {
+    andenes.map(({ id, numero }) => (
+      <section>
+        <div class="mb-4 flex flex-wrap items-center gap-x-4 gap-y-1">
+          <span class="text-5xl" aria-hidden="true"><Paletas texto={String(numero)} tono="azul" /></span>
+          <Titulo class="titulo-rotulo text-4xl">
+            <span class="sr-only">{t('tablero.anden')} {numero}: </span>{t(`anden.${id}`)}
+          </Titulo>
+          <p class="basis-full text-tinta-suave sm:basis-auto">{t(`anden.${id}.nota`)}</p>
+        </div>
+        <div class="border-t-2 border-tinta">
+          {proyectos.filter((p) => p.data.anden === id).map((proyecto) => <ProjectCard proyecto={proyecto} nivel={nivelBoleto} destacado={id === 'producto'} />)}
+        </div>
+      </section>
+    ))
+  }
+</div>

@@ -1,26 +1,25 @@
 ---
-import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
-import Seccion from '../../components/Seccion.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
-import PostCard from '../../components/PostCard.astro';
-import BotonLink from '../../components/BotonLink.astro';
-import Hero3DLoader from '../../components/islands/Hero3DLoader';
-import RoleRotator from '../../components/islands/RoleRotator';
+import Paletas from '../../components/Paletas.astro';
+import Flecha from '../../components/Flecha.astro';
+import Andenes from '../../components/Andenes.astro';
 import { sitio } from '../../config/sitio';
-import { certificaciones, destacados as cifras } from '../../data/experiencia';
+import { DIENTE, paradas } from '../../data/kirei';
 import { getPosts, getProyectos } from '../../lib/contenido';
 import { personaLd, sitioWebLd } from '../../lib/schema';
-import { pathsIdiomas, ruta, usarTraducciones } from '../../i18n/utils';
+import { formatearFecha, pathsIdiomas, ruta, separarId, usarTraducciones } from '../../i18n/utils';
 import { idiomas, type Idioma } from '../../i18n/ui';
 
 export const getStaticPaths = pathsIdiomas;
 
 const idioma = Astro.params.lang as Idioma;
 const t = usarTraducciones(idioma);
-const destacados = (await getProyectos(idioma)).filter((p) => p.data.featured).slice(0, 4);
+const proyectos = await getProyectos(idioma);
+const siguientes = ['dra-vale-boquitas', 'pdf-policies-extractor', 'practica-japones']
+  .map((slug) => proyectos.find((p) => separarId(p.id).slug === slug)!)
+  .filter(Boolean);
+const numeroAnden = { producto: 1, medida: 2, experimento: 3 } as const;
 const posts = (await getPosts(idioma)).slice(0, 3);
-const roles = t('hero.roles').split('|');
 const site = Astro.site!;
 ---
 
@@ -29,120 +28,217 @@ const site = Astro.site!;
   descripcion={t('meta.descripcion')}
   jsonLd={[personaLd(site), sitioWebLd(site, idiomas[idioma].bcp47)]}
 >
-  <!-- Hero -->
-  <section class="relative isolate overflow-hidden">
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
-      <!-- Gradiente radial en vez de blur(): se pinta una vez y no castiga a equipos sin GPU -->
-      <div class="absolute -top-32 left-1/2 size-[36rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--acento)_30%,transparent),transparent)] lg:left-3/4 lg:animate-flotar"></div>
-      <div class="absolute top-40 -left-24 size-[24rem] rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--acento-2)_22%,transparent),transparent)] [animation-delay:-4s] lg:animate-flotar"></div>
-      <div class="absolute inset-0 bg-[linear-gradient(to_right,var(--borde)_1px,transparent_1px),linear-gradient(to_bottom,var(--borde)_1px,transparent_1px)] bg-[size:56px_56px] opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]"></div>
-    </div>
-
-    <div class="mx-auto grid max-w-6xl items-center gap-10 px-5 pt-20 pb-16 sm:pt-28 lg:grid-cols-[1.15fr_1fr] lg:pb-24">
-      <div>
-        <p class="inline-flex items-center gap-2 rounded-full border border-borde bg-superficie/70 px-3 py-1 font-mono text-xs text-tinta-suave">
-          <span class="relative flex size-2"><span class="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex size-2 rounded-full bg-emerald-500"></span></span>
-          {t('hero.rol')} · {sitio.ubicacion}
+  <!-- Tablero de salidas -->
+  <section class="banda" data-tablero>
+    <div class="mx-auto flex min-h-[calc(100svh-4.25rem-1.25rem)] max-w-[90rem] flex-col justify-center gap-6 px-4 py-8 sm:px-8 lg:gap-4 lg:py-4">
+      <div class="flex flex-wrap items-end justify-between gap-x-10 gap-y-3">
+        <h1 class="titulo-rotulo max-w-[18ch] text-5xl sm:text-6xl lg:max-w-none lg:text-[min(5.5vw,5rem)]">{t('hero.titulo')}</h1>
+        <p class="flex flex-wrap items-baseline gap-x-5 gap-y-1 text-xl leading-snug text-tinta-suave">
+          {t('hero.firma')}
+          <span class="font-mono text-sm tabular-nums" data-reloj-texto hidden>{t('hero.hora')} <time data-reloj></time></span>
         </p>
-        <h1 class="mt-6 text-4xl font-extrabold tracking-tight sm:text-6xl">
-          <span class="block text-tinta-suave text-2xl font-semibold sm:text-3xl">{t('hero.saludo')}</span>
-          {sitio.nombre}
-          <span class="mt-2 block text-3xl sm:text-5xl">
-            <RoleRotator client:idle roles={roles} />
-          </span>
-        </h1>
-        <p class="mt-6 max-w-xl text-lg leading-relaxed text-tinta-suave">{t('hero.intro')}</p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <BotonLink href={ruta(idioma, 'projects')}>{t('hero.ctaProyectos')} →</BotonLink>
-          <BotonLink href={ruta(idioma, 'contact')} variante="secundario">{t('hero.ctaContacto')}</BotonLink>
+      </div>
+
+      <div>
+        <div class="col-tablero hidden border-b-2 border-borde pb-2 font-display text-lg font-bold tracking-wide uppercase lg:grid" aria-hidden="true">
+          <span>{t('tablero.proxima')}</span>
+          <span>{t('tablero.destino')}</span>
         </div>
-        {
-          certificaciones.map((c) => (
-            <a
-              href={ruta(idioma, 'cv')}
-              class="mt-8 inline-flex items-center gap-3 rounded-2xl border border-[#d97757]/40 bg-[#d97757]/10 py-2 pr-4 pl-2 text-sm transition hover:border-[#d97757]/70"
-            >
-              {
-                c.imagen ? (
-                  <Image src={c.imagen} alt="" width={44} height={44} densities={[1, 2, 3]} class="size-11" />
-                ) : (
-                  <span class="grid size-8 place-items-center rounded-xl bg-[#d97757] text-base text-white" aria-hidden="true">✦</span>
-                )
-              }
-              <span>
-                <span class="block font-semibold">{c.nombre}</span>
-                <span class="block text-xs text-tinta-suave">{t('hero.certificacion')}</span>
-              </span>
+
+        <!-- Kirei: la próxima salida -->
+        <div class="col-tablero grid items-center gap-y-5 border-b-2 border-borde py-5 lg:py-4">
+          <h2 class="text-[25.5vw] leading-none lg:text-[min(15.5vw,33vh,14.75rem)]">
+            <Paletas texto="Kirei" tono="amarillo" />
+          </h2>
+          <div class="flex flex-col items-start gap-4">
+            <p class="titulo-rotulo text-4xl xl:text-5xl">{t('kirei.para')}</p>
+            <dl class="flex flex-wrap items-end gap-x-8 gap-y-3">
+              <div>
+                <dt class="text-sm text-tinta-suave">{t('tablero.anden')}</dt>
+                <dd class="text-[1.75rem]"><Paletas texto="1" chica /></dd>
+              </div>
+              <div>
+                <dt class="text-sm text-tinta-suave">{t('tablero.estado')}</dt>
+                <dd class="text-[1.75rem]"><Paletas texto={t('estado.proximamente')} tono="rojo" chica /></dd>
+              </div>
+            </dl>
+            <a href={sitio.kirei.landing} class="boton-boleto">
+              {t('kirei.cta')}
+              <span class="-my-1 ml-1 border-l-2 border-dashed border-current py-1 pl-4 text-xl"><Flecha /></span>
             </a>
-          ))
-        }
+          </div>
+        </div>
+
+        <!-- Las demás salidas -->
+        <ul>
+          {
+            siguientes.map((p) => (
+              <li class="border-b border-borde">
+                <a href={ruta(idioma, `projects/${separarId(p.id).slug}`)} class="col-tablero grid items-center gap-y-1 py-2.5 transition-colors duration-150 hover:bg-azul-hondo">
+                  <span class="text-[1.6rem] sm:text-[1.9rem]">
+                    <Paletas texto={p.data.corto} chica />
+                  </span>
+                  <span class="flex items-baseline justify-between gap-4 text-lg">
+                    <span>{p.data.para}</span>
+                    <span class="font-display font-bold tracking-wide whitespace-nowrap uppercase">
+                      {t('tablero.anden')} {numeroAnden[p.data.anden]} · {t(`estado.${p.data.estado}`)}
+                    </span>
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
       </div>
-      <div class="relative hidden aspect-square w-full lg:block">
-        <Hero3DLoader client:idle />
+    </div>
+    <div class="franjas" aria-hidden="true"></div>
+  </section>
+
+  <!-- Kirei: su sección conserva su propia identidad -->
+  <section id="kirei" class="bg-kirei-tinta text-kirei-esmalte">
+    <div class="mx-auto grid max-w-[90rem] gap-14 px-4 py-20 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-20 lg:py-28">
+      <div class="lg:sticky lg:top-24 lg:self-start">
+        <p class="flex items-center gap-3 text-xl font-semibold">
+          <svg viewBox="0 0 512 512" class="size-11" aria-hidden="true"><rect width="512" height="512" rx="112" fill="#1d6b73"></rect><path fill="#fff" d={DIENTE}></path></svg>
+          Kirei
+        </p>
+        <h2 class="mt-7 font-kirei text-6xl leading-[0.98] font-light tracking-tight sm:text-7xl xl:text-[5.5rem]">
+          {t('kirei.titulo.a')} <em class="font-normal text-kirei-menta">{t('kirei.titulo.b')}</em> {t('kirei.titulo.c')}
+        </h2>
+        <p class="mt-7 max-w-xl text-xl leading-relaxed text-kirei-esmalte/80">{t('kirei.texto')}</p>
+        <p class="mt-5 max-w-xl leading-relaxed text-kirei-esmalte/80">{t('kirei.nacio')}</p>
+
+        <dl class="mt-8 grid max-w-xl grid-cols-3 gap-px bg-kirei-esmalte/20">
+          <div class="bg-kirei-tinta py-3 pr-3"><dt class="text-sm text-kirei-esmalte/70">Básico</dt><dd class="font-mono text-lg">$649</dd></div>
+          <div class="bg-kirei-tinta py-3 pr-3 pl-4"><dt class="text-sm text-kirei-esmalte/70">Profesional</dt><dd class="font-mono text-lg">$1,099</dd></div>
+          <div class="bg-kirei-tinta py-3 pr-3 pl-4"><dt class="text-sm text-kirei-esmalte/70">Clínica</dt><dd class="font-mono text-lg">$2,149</dd></div>
+        </dl>
+        <p class="mt-2 max-w-xl text-sm text-kirei-esmalte/70">{t('kirei.precios')}</p>
+
+        <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <a href={sitio.kirei.landing} class="inline-flex items-center gap-2 rounded-full bg-kirei-coral px-7 py-4 text-lg font-semibold text-kirei-tinta transition-colors duration-150 hover:bg-kirei-menta">
+            {t('kirei.cta2')}
+            <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 12h15m-6-7 7 7-7 7"></path></svg>
+          </a>
+          <p class="text-kirei-esmalte/80">{t('kirei.pronto')}</p>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="font-kirei text-3xl font-light">{t('kirei.dia')}</h3>
+        <ol class="mt-6">
+          {
+            paradas.map((p) => (
+              <li class="grid grid-cols-[4.25rem_1.25rem_1fr] gap-x-3">
+                <time class="pt-5 font-mono text-sm text-kirei-menta tabular-nums">{p.hora}</time>
+                <span class="relative flex justify-center" aria-hidden="true">
+                  <span class="absolute inset-y-0 w-0.5 bg-kirei-teal"></span>
+                  <span class="relative mt-6 size-3 rounded-full bg-kirei-coral ring-4 ring-kirei-tinta"></span>
+                </span>
+                <div class="border-b border-kirei-esmalte/15 py-4">
+                  <p class="font-kirei text-2xl leading-snug font-light">{p.titulo[idioma]}</p>
+                  <p class="mt-1 text-sm text-kirei-esmalte/70">{p.modulo[idioma]}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
       </div>
     </div>
   </section>
 
-  <!-- Cifras -->
-  <section class="mx-auto max-w-6xl px-5" aria-label={t('home.cifras')}>
-    <dl class="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-borde bg-borde lg:grid-cols-4">
-      {
-        cifras.map(({ valor, texto }) => (
-          <div class="flex flex-col-reverse gap-1 bg-superficie p-6">
-            <dt class="text-sm text-tinta-suave">{texto[idioma]}</dt>
-            <dd class="texto-gradiente text-4xl font-extrabold tracking-tight">{valor}</dd>
-          </div>
-        ))
-      }
-    </dl>
+  <!-- Quién atiende -->
+  <section class="mx-auto grid max-w-[90rem] gap-8 px-4 py-20 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:py-28">
+    <h2 class="titulo-rotulo text-6xl sm:text-7xl lg:text-8xl">{t('julio.titulo')}</h2>
+    <div class="max-w-[62ch]">
+      <p class="text-2xl leading-snug font-medium">{t('julio.a')}</p>
+      <p class="mt-5 text-xl leading-relaxed text-tinta-suave">{t('julio.b')}</p>
+      <p class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-lg font-semibold">
+        <a href={ruta(idioma, 'cv')} class="text-acento underline decoration-2 underline-offset-4">{t('julio.cv')}</a>
+        <a href={sitio.github} rel="me noopener" target="_blank" class="text-acento underline decoration-2 underline-offset-4">GitHub</a>
+      </p>
+    </div>
   </section>
 
-  <!-- Proyectos destacados (bento) -->
-  <Seccion titulo={t('home.destacados')} subtitulo={t('home.destacadosSub')}>
-    <BotonLink slot="accion" href={ruta(idioma, 'projects')} variante="secundario">{t('home.verTodos')} →</BotonLink>
-    <div class="grid gap-6 md:grid-cols-2">
-      {destacados.map((proyecto, i) => <ProjectCard proyecto={proyecto} grande={i === 0 && destacados.length % 2 === 1} />)}
-    </div>
-  </Seccion>
-
-  <!-- Stack -->
-  <Seccion titulo={t('home.stack')}>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {
-        Object.entries(sitio.habilidades).map(([grupo, lista]) => (
-          <div class="rounded-3xl border border-borde bg-superficie p-6">
-            <h3 class="font-mono text-sm text-acento">{t(`stack.${grupo as keyof typeof sitio.habilidades}`)}</h3>
-            <ul class="mt-4 flex flex-wrap gap-2">
-              {lista.map((h) => <li class="rounded-full bg-borde/50 px-3 py-1.5 text-sm">{h}</li>)}
-            </ul>
-          </div>
-        ))
-      }
-    </div>
-  </Seccion>
+  <!-- Todas las salidas -->
+  <section id="salidas" class="mx-auto max-w-[90rem] px-4 pb-20 sm:px-8 lg:pb-28">
+    <h2 class="titulo-rotulo mb-12 text-6xl sm:text-7xl">{t('home.salidas')}</h2>
+    <Andenes idioma={idioma} proyectos={proyectos} />
+  </section>
 
   {
     posts.length > 0 && (
-      <Seccion titulo={t('home.blog')}>
-        <BotonLink slot="accion" href={ruta(idioma, 'blog')} variante="secundario">{t('home.verBlog')} →</BotonLink>
-        <div class="grid gap-6 md:grid-cols-3">
-          {posts.map((post) => <PostCard post={post} />)}
+      <section class="mx-auto max-w-[90rem] px-4 pb-20 sm:px-8">
+        <div class="mb-6 flex flex-wrap items-end justify-between gap-3 border-b-2 border-tinta pb-3">
+          <h2 class="titulo-rotulo text-5xl">{t('home.blog')}</h2>
+          <a href={ruta(idioma, 'blog')} class="font-semibold text-acento underline decoration-2 underline-offset-4">{t('home.verBlog')}</a>
         </div>
-      </Seccion>
+        <ul>
+          {posts.map((post) => (
+            <li class="border-b border-borde">
+              <a href={ruta(idioma, `blog/${separarId(post.id).slug}`)} class="group grid gap-x-8 gap-y-1 py-4 md:grid-cols-[10rem_1fr]">
+                <time datetime={post.data.pubDate.toISOString()} class="font-mono text-sm text-tinta-suave">{formatearFecha(post.data.pubDate, idioma)}</time>
+                <span>
+                  <span class="block text-xl font-semibold group-hover:text-acento">{post.data.title}</span>
+                  <span class="mt-1 block max-w-[70ch] text-tinta-suave">{post.data.description}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
     )
   }
 
-  <!-- CTA -->
-  <section class="mx-auto max-w-6xl px-5 py-16">
-    <div class="relative overflow-hidden rounded-[2rem] border border-borde bg-superficie px-8 py-14 text-center sm:px-16">
-      <div aria-hidden="true" class="absolute inset-0 -z-0 bg-[radial-gradient(circle_at_30%_0%,var(--acento),transparent_45%),radial-gradient(circle_at_80%_100%,var(--acento-2),transparent_40%)] opacity-20"></div>
-      <div class="relative">
-        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">{t('home.ctaTitulo')}</h2>
-        <p class="mx-auto mt-3 max-w-lg text-tinta-suave">{t('home.ctaTexto')}</p>
-        <div class="mt-8 flex justify-center">
-          <BotonLink href={ruta(idioma, 'contact')}>{t('hero.ctaContacto')} →</BotonLink>
-        </div>
+  <!-- Fin de la línea -->
+  <section class="banda">
+    <div class="franjas" aria-hidden="true"></div>
+    <div class="mx-auto flex max-w-[90rem] flex-col gap-8 px-4 py-20 sm:px-8 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <h2 class="text-[8.5vw] sm:text-7xl lg:text-8xl"><Paletas texto={t('cierre.titulo')} /></h2>
+        <p class="mt-6 max-w-xl text-xl leading-relaxed text-tinta-suave">{t('cierre.texto')}</p>
+      </div>
+      <div class="flex flex-wrap gap-4">
+        <a href={sitio.kirei.landing} class="boton-boleto">{t('kirei.cta')}</a>
+        <a href={ruta(idioma, 'contact')} class="boton-linea">{t('hero.ctaContacto')}</a>
       </div>
     </div>
   </section>
 </Base>
+
+<script>
+  // La caída de paletas al cargar; sin JS o con movimiento reducido el tablero ya está completo.
+  const alfabeto = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789';
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('[data-tablero] [data-paletas]').forEach((grupo, g) => {
+      grupo.querySelectorAll<HTMLElement>('.paleta').forEach((paleta, i) => {
+        const final = paleta.dataset.l!;
+        if (final === ' ') return;
+        const vueltas = 3 + ((i * 7 + g) % 5);
+        let n = 0;
+        const paso = () => {
+          n += 1;
+          const termina = n > vueltas;
+          // La letra anterior se va en la mitad que cae; la nueva ya está debajo
+          paleta.dataset.previa = paleta.firstChild!.textContent ?? '';
+          paleta.firstChild!.textContent = termina ? final : alfabeto[(i * 11 + n * 5 + g) % alfabeto.length];
+          paleta.classList.remove('cae');
+          void paleta.offsetWidth;
+          paleta.classList.add('cae');
+          if (!termina) setTimeout(paso, 125);
+        };
+        setTimeout(paso, 150 + g * 70 + i * 40);
+      });
+    });
+  }
+
+  // Hora real del centro de México en el tablero
+  const reloj = document.querySelector<HTMLTimeElement>('[data-reloj]');
+  if (reloj) {
+    const formato = new Intl.DateTimeFormat('es-MX', { timeZone: 'America/Mexico_City', hour: '2-digit', minute: '2-digit', hour12: false });
+    const pinta = () => (reloj.textContent = formato.format(new Date()));
+    pinta();
+    document.querySelector<HTMLElement>('[data-reloj-texto]')!.hidden = false;
+    setInterval(pinta, 20000);
+  }
+</script>

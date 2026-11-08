@@ -6,9 +6,12 @@ interface Props {
 const { titulo, descripcion } = Astro.props;
 ---
 
-<header class="mx-auto max-w-6xl px-5 pt-16 pb-4 sm:pt-24">
-  <slot name="antes" />
-  <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">{titulo}</h1>
-  {descripcion && <p class="mt-4 max-w-2xl text-lg text-tinta-suave">{descripcion}</p>}
-  <slot />
+<header class="banda">
+  <div class="mx-auto max-w-[90rem] px-4 pt-14 pb-12 sm:px-8 sm:pt-20">
+    <slot name="antes" />
+    <h1 class="titulo-rotulo max-w-[22ch] text-6xl sm:text-7xl">{titulo}</h1>
+    {descripcion && <p class="mt-5 max-w-2xl text-xl leading-relaxed text-tinta-suave">{descripcion}</p>}
+    <slot />
+  </div>
+  <div class="franjas" aria-hidden="true"></div>
 </header>

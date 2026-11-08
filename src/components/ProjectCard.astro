@@ -1,58 +1,38 @@
 ---
-import { Image } from 'astro:assets';
+import Paletas from './Paletas.astro';
 import type { Proyecto } from '../lib/contenido';
-import { separarId, ruta } from '../i18n/utils';
+import { separarId, ruta, usarTraducciones } from '../i18n/utils';
 
 interface Props {
   /** Nivel del título según la jerarquía de la página. */
-  nivel?: 'h2' | 'h3';
+  nivel?: 'h2' | 'h3' | 'h4';
   proyecto: Proyecto;
-  grande?: boolean;
+  /** La próxima salida: renglón a mayor escala. */
+  destacado?: boolean;
 }
 
-const { proyecto, grande = false, nivel: Titulo = 'h3' } = Astro.props;
+const { proyecto, nivel: Titulo = 'h4', destacado = false } = Astro.props;
 const { idioma, slug } = separarId(proyecto.id);
-const { title, description, stack, cover, coverAlt, accent } = proyecto.data;
+const t = usarTraducciones(idioma);
+const { title, description, stack, para, estado, corto, date } = proyecto.data;
 ---
 
-<article
-  class:list={[
-    'group relative flex flex-col overflow-hidden rounded-3xl border border-borde bg-superficie transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[var(--acento-card)]/15',
-    grande && 'md:col-span-2',
-  ]}
-  style={`--acento-card: ${accent}`}
->
-  <div class:list={['relative overflow-hidden', grande ? 'aspect-[21/9]' : 'aspect-[16/9]']}>
-    {
-      cover ? (
-        <Image
-          src={cover}
-          alt={coverAlt ?? title}
-          widths={[480, 800, 1200]}
-          sizes="(min-width: 768px) 50vw, 100vw"
-          class="size-full object-cover transition duration-500 group-hover:scale-105"
-        />
-      ) : (
-        <div
-          class="grid size-full place-items-center transition duration-500 group-hover:scale-105"
-          style={`background: radial-gradient(circle at 25% 20%, ${accent}66, transparent 55%), radial-gradient(circle at 80% 80%, ${accent}33, transparent 50%), linear-gradient(135deg, ${accent}22, transparent)`}
-        >
-          <span class="px-6 text-center text-2xl font-bold tracking-tight opacity-80 sm:text-3xl" style={`color: ${accent}`}>
-            {title}
-          </span>
-        </div>
-      )
-    }
-  </div>
-  <div class="flex flex-1 flex-col gap-3 p-6">
-    <Titulo class="text-xl font-semibold tracking-tight">
+<article class="group col-tablero relative grid gap-y-4 border-b border-borde py-6 transition-colors duration-150 hover:bg-superficie">
+  <div>
+    <Titulo class:list={['block', destacado ? 'text-[17vw] sm:text-8xl' : 'text-[1.9rem]']}>
       <a href={ruta(idioma, `projects/${slug}`)} class="after:absolute after:inset-0">
-        {title}
+        <span class="sr-only">{title}</span>
+        <span aria-hidden="true"><Paletas texto={corto} tono={destacado ? 'amarillo' : 'azul'} chica={!destacado} /></span>
       </a>
     </Titulo>
-    <p class="text-sm leading-relaxed text-tinta-suave">{description}</p>
-    <ul class="mt-auto flex flex-wrap gap-2 pt-2">
-      {stack.map((tec) => <li class="rounded-full border border-borde px-2.5 py-1 font-mono text-xs text-tinta-suave">{tec}</li>)}
-    </ul>
+    <p class:list={['mt-3 max-w-[62ch] leading-relaxed text-tinta-suave', destacado && 'text-lg']}>{description}</p>
+  </div>
+  <div class="flex flex-col items-start gap-3">
+    <p class="text-lg font-semibold">{para}</p>
+    <p class="font-mono text-xs leading-relaxed text-tinta-suave">{stack.slice(0, 5).join(' · ')}</p>
+    <p class="flex items-center gap-4">
+      <span class="sello">{t(`estado.${estado}`)}</span>
+      <time datetime={date.toISOString()} class="font-mono text-sm text-tinta-suave tabular-nums">{date.getUTCFullYear()}</time>
+    </p>
   </div>
 </article>

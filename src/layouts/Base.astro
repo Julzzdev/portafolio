@@ -17,22 +17,22 @@ const enVercel = !!process.env.VERCEL;
 ---
 
 <!doctype html>
-<html lang={idiomas[idioma].bcp47} class="dark">
+<html lang={idiomas[idioma].bcp47} class="">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b1f86" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#1537c9" media="(prefers-color-scheme: light)" />
     <SEO {...Astro.props} />
 
     <!-- Aplica el tema antes de pintar para evitar parpadeo -->
     <script is:inline>
       (() => {
         const guardado = localStorage.getItem('tema');
-        const claro = guardado ? guardado === 'light' : matchMedia('(prefers-color-scheme: light)').matches;
+        const claro = guardado ? guardado === 'light' : !matchMedia('(prefers-color-scheme: dark)').matches;
         document.documentElement.classList.toggle('dark', !claro);
       })();
     </script>
@@ -40,7 +40,7 @@ const enVercel = !!process.env.VERCEL;
   <body class="flex min-h-dvh flex-col">
     <a
       href="#contenido"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-superficie focus:px-4 focus:py-2 focus:shadow"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-amarillo focus:px-4 focus:py-2 focus:text-[#07124a]"
     >
       {t('nav.saltar')}
     </a>

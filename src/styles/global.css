@@ -1,28 +1,43 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-@import "@fontsource-variable/inter";
+@import "@fontsource-variable/big-shoulders";
+@import "@fontsource/barlow/latin-400.css";
+@import "@fontsource/barlow/latin-500.css";
+@import "@fontsource/barlow/latin-600.css";
+@import "@fontsource/fraunces/latin-300.css";
+@import "@fontsource/fraunces/latin-400-italic.css";
 @import "@fontsource-variable/jetbrains-mono";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Colores de la central: fijos en ambos temas */
 :root {
-  --fondo: #fafaf9;
-  --superficie: #ffffff;
-  --borde: #e7e5e4;
-  --tinta: #18181b;
-  --tinta-suave: #52525b;
-  --acento: #6d4aff;
-  --acento-2: #0d9488;
+  --azul: #1537c9;
+  --azul-hondo: #0b1f86;
+  --crema: #f4e9cf;
+  --amarillo: #ffc21a;
+  --rojo: #d6331d;
+  --noche: #07124a;
+
+  /* De día: papel de boleto */
+  --fondo: #f4e9cf;
+  --superficie: #fbf5e4;
+  --borde: #cdbd97;
+  --tinta: #0c1a5c;
+  --tinta-suave: #3e4a82;
+  --acento: #1537c9;
+  --acento-2: #b92a15;
 }
 
+/* De noche: la terminal con las luces bajas */
 .dark {
-  --fondo: #09090b;
-  --superficie: #131316;
-  --borde: #27272a;
-  --tinta: #f4f4f5;
-  --tinta-suave: #a1a1aa;
-  --acento: #a28bff;
-  --acento-2: #2dd4bf;
+  --fondo: #0a1650;
+  --superficie: #11216e;
+  --borde: #2f409a;
+  --tinta: #f4e9cf;
+  --tinta-suave: #c3c9e6;
+  --acento: #ffc21a;
+  --acento-2: #ff9a82;
 }
 
 @theme inline {
@@ -33,12 +48,25 @@
   --color-tinta-suave: var(--tinta-suave);
   --color-acento: var(--acento);
   --color-acento-2: var(--acento-2);
+  --color-azul: var(--azul);
+  --color-azul-hondo: var(--azul-hondo);
+  --color-crema: var(--crema);
+  --color-amarillo: var(--amarillo);
+  --color-rojo: var(--rojo);
 }
 
 @theme {
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Barlow", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Big Shoulders Variable", "Arial Narrow", sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
-  --animate-flotar: flotar 9s ease-in-out infinite;
+  --font-kirei: "Fraunces", Georgia, serif;
+  --color-kirei-tinta: #0a2326;
+  --color-kirei-tinta-2: #123438;
+  --color-kirei-teal: #1d6b73;
+  --color-kirei-esmalte: #f6f1e8;
+  --color-kirei-menta: #a8f0d4;
+  --color-kirei-coral: #ff6f4f;
+  --color-kirei-mantequilla: #ffd87a;
 }
 
 /* Transiciones nativas entre páginas (sin JS); los navegadores sin soporte navegan normal */
@@ -48,34 +76,31 @@
   }
 }
 
-@keyframes flotar {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(0, -18px, 0) scale(1.05); }
-}
-
-@utility texto-gradiente {
-  background-image: linear-gradient(100deg, var(--acento), var(--acento-2));
-  background-clip: text;
-  color: transparent;
-}
-
 @layer base {
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
     color-scheme: light;
+    scrollbar-color: var(--azul) var(--crema);
   }
   html.dark {
     color-scheme: dark;
+    scrollbar-color: var(--amarillo) var(--noche);
   }
   body {
     @apply bg-fondo font-sans text-tinta antialiased;
   }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
   ::selection {
-    @apply bg-acento/30;
+    background: var(--amarillo);
+    color: var(--noche);
   }
   :focus-visible {
-    @apply rounded-sm outline-2 outline-offset-2 outline-acento;
+    outline: 3px solid var(--amarillo);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--noche);
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -87,14 +112,206 @@
   }
 }
 
+/* Superficie azul esmaltada: encabezado, tablero y cierres */
+.banda {
+  --tinta: var(--crema);
+  --tinta-suave: #d7dcf4;
+  --borde: #5068dc;
+  --superficie: var(--azul-hondo);
+  --acento: var(--amarillo);
+  --acento-2: var(--amarillo);
+  background: var(--azul);
+  color: var(--crema);
+}
+
+/* Franjas de la carrocería */
+.franjas {
+  height: 1.25rem;
+  background: linear-gradient(
+    to bottom,
+    var(--rojo) 0 34%,
+    var(--amarillo) 34% 67%,
+    var(--crema) 67%
+  );
+}
+
+/* Columnas fijas del tablero: la misma medida en todas las filas */
+@media (min-width: 64rem) {
+  .col-tablero {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    column-gap: 2.5rem;
+  }
+}
+
+.titulo-rotulo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  line-height: 0.95;
+}
+
+/* Paletas del tablero: la medida sale del font-size del grupo */
+.paletas {
+  --teja: var(--crema);
+  --letra: var(--noche);
+  display: inline-flex;
+  gap: 0.05em;
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1;
+}
+.paletas-amarillo { --teja: var(--amarillo); }
+.paletas-azul { --teja: var(--azul); --letra: var(--crema); }
+.paletas-rojo { --teja: var(--rojo); --letra: #fff8ea; }
+.paleta {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 0.66em;
+  height: 1.16em;
+  overflow: hidden;
+  border-radius: 0.05em;
+  background: linear-gradient(to bottom, var(--teja) 50%, color-mix(in oklab, var(--teja) 96%, var(--noche)) 50%);
+  color: var(--letra);
+  perspective: 2.5em;
+  box-shadow: 0 0.03em 0.08em rgb(4 12 60 / 0.45);
+}
+/* Corte horizontal de la paleta */
+.paleta::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  top: calc(50% - max(0.5px, 0.008em));
+  height: max(1px, 0.016em);
+  background: rgb(7 18 74 / 0.5);
+}
+/* En paletas chicas el corte pasa detrás de la letra para no tacharla */
+.paletas-chicas .paleta { isolation: isolate; }
+.paletas-chicas .paleta::after { z-index: -1; background: rgb(7 18 74 / 0.2); }
+/* Mitad superior que cae cuando cambia el dato */
+.paleta::before {
+  content: attr(data-previa);
+  position: absolute;
+  inset: 0 0 50%;
+  overflow: hidden;
+  background: var(--teja);
+  color: var(--letra);
+  line-height: 1.16em;
+  text-align: center;
+  transform-origin: bottom;
+  backface-visibility: hidden;
+  opacity: 0;
+}
+.paleta.cae::before {
+  animation: caer 110ms cubic-bezier(0.55, 0, 0.9, 0.4);
+}
+@keyframes caer {
+  from { opacity: 1; transform: rotateX(0deg); }
+  to { opacity: 1; transform: rotateX(-90deg); }
+}
+
+/* Botón con muescas de boleto */
+.boton-boleto {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.25rem;
+  padding: 0.7rem 1.75rem;
+  background: var(--rojo);
+  color: #fff8ea;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  -webkit-mask:
+    radial-gradient(0.5rem at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(0.5rem at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(0.5rem at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(0.5rem at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+  transition: background-color 160ms ease-out, color 160ms ease-out;
+}
+.boton-boleto:hover {
+  background: var(--amarillo);
+  color: var(--noche);
+}
+.boton-boleto:focus-visible {
+  outline: 3px solid var(--noche);
+  outline-offset: -7px;
+  box-shadow: none;
+}
+.boton-boleto:hover:focus-visible { outline-color: var(--rojo); }
+.boton-boleto:disabled {
+  opacity: 0.6;
+}
+.boton-linea {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 3.25rem;
+  padding: 0.7rem 1.4rem;
+  border: 2px solid currentColor;
+  border-radius: 3px;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  transition: background-color 160ms ease-out, color 160ms ease-out;
+}
+.boton-linea:hover {
+  background: var(--tinta);
+  color: var(--fondo);
+  border-color: var(--tinta);
+}
+.banda .boton-linea:hover {
+  color: var(--azul-hondo);
+}
+
+.sello {
+  display: inline-block;
+  padding: 0.2rem 0.45rem 0.15rem;
+  border: 2px solid currentColor;
+  border-radius: 3px;
+  color: var(--acento-2);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+  transform: rotate(-4deg);
+}
+
+/* La tipografía de los artículos usa la paleta del sitio en ambos temas */
+.prose {
+  --tw-prose-body: var(--tinta-suave);
+  --tw-prose-headings: var(--tinta);
+  --tw-prose-lead: var(--tinta-suave);
+  --tw-prose-links: var(--acento);
+  --tw-prose-bold: var(--tinta);
+  --tw-prose-counters: var(--tinta-suave);
+  --tw-prose-bullets: var(--borde);
+  --tw-prose-hr: var(--borde);
+  --tw-prose-quotes: var(--tinta);
+  --tw-prose-quote-borders: var(--borde);
+  --tw-prose-code: var(--tinta);
+  --tw-prose-th-borders: var(--borde);
+  --tw-prose-td-borders: var(--borde);
+}
+.prose code::before,
+.prose code::after {
+  content: none;
+}
+
 /* Bloques de código Shiki con tema dual */
 html.dark .astro-code,
 html.dark .astro-code span {
   color: var(--shiki-dark) !important;
   background-color: var(--shiki-dark-bg) !important;
-}
-
-@keyframes aparecer {
-  from { opacity: 0; transform: scale(0.92); }
-  to { opacity: 1; transform: scale(1); }
 }

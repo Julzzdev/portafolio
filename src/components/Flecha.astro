@@ -1,0 +1,14 @@
+---
+interface Props {
+  dir?: 'adelante' | 'externo' | 'abajo' | 'atras';
+}
+const { dir = 'adelante' } = Astro.props;
+const trazos = {
+  adelante: 'M4 12h15m-6-7 7 7-7 7',
+  externo: 'M6 18 18 6M8 6h10v10',
+  abajo: 'M12 4v15m-7-6 7 7 7-7',
+  atras: 'M20 12H5m6-7-7 7 7 7',
+};
+---
+
+<svg viewBox="0 0 24 24" class="inline-block size-[1em] shrink-0" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d={trazos[dir]}></path></svg>

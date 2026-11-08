@@ -23,10 +23,10 @@ const textos = {
 };
 ---
 
-<Base titulo={`${t('contacto.titulo')} · Julio Olvera`} descripcion={t('contacto.descripcion')}>
+<Base titulo={`${t('contacto.titulo')} · Julzz Labs`} descripcion={t('contacto.descripcion')}>
   <Encabezado titulo={t('contacto.titulo')} descripcion={t('contacto.descripcion')} />
-  <div class="mx-auto max-w-6xl px-5 py-10">
-    <div class="max-w-3xl rounded-3xl border border-borde bg-superficie p-6 sm:p-10">
+  <div class="mx-auto max-w-[90rem] px-4 sm:px-8 py-10">
+    <div class="max-w-3xl bg-superficie p-6 sm:p-10">
       <ContactForm client:visible textos={textos} idioma={idioma} turnstileSiteKey={PUBLIC_TURNSTILE_SITE_KEY} />
     </div>
     <p class="mt-6 text-sm text-tinta-suave">

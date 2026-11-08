@@ -1,23 +1,25 @@
 ---
-import { getIdiomaDeUrl, usarTraducciones } from '../i18n/utils';
+import { getIdiomaDeUrl, ruta, usarTraducciones } from '../i18n/utils';
 import { sitio } from '../config/sitio';
 
-const t = usarTraducciones(getIdiomaDeUrl(Astro.url));
+const idioma = getIdiomaDeUrl(Astro.url);
+const t = usarTraducciones(idioma);
 const redes = [
+  { href: ruta(idioma, 'cv'), texto: t('nav.cv') },
   { href: sitio.github, texto: 'GitHub' },
   { href: sitio.linkedin, texto: 'LinkedIn' },
   { href: `mailto:${sitio.email}`, texto: 'Email' },
 ];
 ---
 
-<footer class="mt-24 border-t border-borde/60">
-  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-10 text-sm text-tinta-suave sm:flex-row">
-    <p>© {new Date().getFullYear()} {sitio.nombre}. {t('footer.hecho')}</p>
-    <ul class="flex gap-5">
+<footer class="banda border-t border-borde">
+  <div class="mx-auto flex max-w-[90rem] flex-col justify-between gap-4 px-4 py-8 sm:flex-row sm:items-center sm:px-8">
+    <p>© {new Date().getFullYear()} {sitio.marca}. {t('footer.hecho')}</p>
+    <ul class="flex flex-wrap gap-x-6 gap-y-2 font-semibold">
       {
         redes.map(({ href, texto }) => (
           <li>
-            <a href={href} class="transition hover:text-tinta" rel="me noopener" target={href.startsWith('http') ? '_blank' : undefined}>
+            <a href={href} class="underline-offset-4 hover:underline" rel={href.startsWith('http') ? 'me noopener' : undefined} target={href.startsWith('http') ? '_blank' : undefined}>
               {texto}
             </a>
           </li>

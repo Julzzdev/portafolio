@@ -1,0 +1,617 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-08T00:00:00Z",
+  "title": "Design System: Julzz Labs",
+  "extensions": {
+    "colorMeta": {
+      "azul": {
+        "role": "primary",
+        "displayName": "Azul Esmaltado",
+        "canonical": "#1537c9",
+        "tonalRamp": [
+          "#010037",
+          "#05007b",
+          "#0c21b6",
+          "#234dde",
+          "#4475ff",
+          "#7aa1fe",
+          "#b0c9fe",
+          "#e7efff"
+        ]
+      },
+      "azul-hondo": {
+        "role": "primary",
+        "displayName": "Azul Hondo",
+        "canonical": "#0b1f86",
+        "tonalRamp": [
+          "#010038",
+          "#050875",
+          "#17349a",
+          "#3357c0",
+          "#527be7",
+          "#7ba1fd",
+          "#b1c9fe",
+          "#e7efff"
+        ]
+      },
+      "noche": {
+        "role": "neutral",
+        "displayName": "Noche de Central",
+        "canonical": "#07124a",
+        "tonalRamp": [
+          "#02052c",
+          "#0f1e56",
+          "#293d79",
+          "#475e9c",
+          "#6780c1",
+          "#88a3e7",
+          "#b2c8fd",
+          "#e7eeff"
+        ]
+      },
+      "amarillo": {
+        "role": "secondary",
+        "displayName": "Amarillo Paleta",
+        "canonical": "#ffc21a",
+        "tonalRamp": [
+          "#120900",
+          "#312200",
+          "#553e01",
+          "#7b5c00",
+          "#a37b0e",
+          "#cf9c0e",
+          "#f3c14f",
+          "#ffedc7"
+        ]
+      },
+      "rojo": {
+        "role": "tertiary",
+        "displayName": "Rojo Boleto",
+        "canonical": "#d6331d",
+        "tonalRamp": [
+          "#210000",
+          "#4d0200",
+          "#7d0f02",
+          "#b41801",
+          "#e23f29",
+          "#ff745e",
+          "#ffb3a5",
+          "#ffe9e5"
+        ]
+      },
+      "crema": {
+        "role": "neutral",
+        "displayName": "Crema Boleto",
+        "canonical": "#f4e9cf",
+        "tonalRamp": [
+          "#100a01",
+          "#2c240f",
+          "#4a412b",
+          "#6a604a",
+          "#8b816a",
+          "#afa48c",
+          "#d1c8b3",
+          "#f2eee6"
+        ]
+      },
+      "crema-clara": {
+        "role": "neutral",
+        "displayName": "Crema Clara",
+        "canonical": "#fff8ea",
+        "tonalRamp": [
+          "#0e0b05",
+          "#2a241a",
+          "#474136",
+          "#666155",
+          "#888275",
+          "#aba497",
+          "#cec8bd",
+          "#f0eeea"
+        ]
+      },
+      "superficie": {
+        "role": "neutral",
+        "displayName": "Papel Alto",
+        "canonical": "#fbf5e4",
+        "tonalRamp": [
+          "#0e0b04",
+          "#292518",
+          "#474234",
+          "#666152",
+          "#878273",
+          "#aaa595",
+          "#cec9bb",
+          "#f0eee9"
+        ]
+      },
+      "borde": {
+        "role": "neutral",
+        "displayName": "Filete de Boleto",
+        "canonical": "#cdbd97",
+        "tonalRamp": [
+          "#120a00",
+          "#302300",
+          "#4e401e",
+          "#6e603d",
+          "#90815d",
+          "#b3a47e",
+          "#d5c8a8",
+          "#f3eee2"
+        ]
+      },
+      "tinta": {
+        "role": "neutral",
+        "displayName": "Tinta Azul",
+        "canonical": "#0c1a5c",
+        "tonalRamp": [
+          "#020230",
+          "#0d1b5d",
+          "#263c80",
+          "#435da4",
+          "#637fc9",
+          "#84a2f0",
+          "#b2c8fe",
+          "#e7eeff"
+        ]
+      },
+      "tinta-suave": {
+        "role": "neutral",
+        "displayName": "Tinta Suave",
+        "canonical": "#3e4a82",
+        "tonalRamp": [
+          "#050529",
+          "#171e52",
+          "#323d73",
+          "#4f5d96",
+          "#6f7ebb",
+          "#91a1e0",
+          "#b8c7fd",
+          "#e9eeff"
+        ]
+      },
+      "rojo-texto": {
+        "role": "tertiary",
+        "displayName": "Rojo de Texto",
+        "canonical": "#b92a15",
+        "tonalRamp": [
+          "#210000",
+          "#4c0300",
+          "#7e0d00",
+          "#b1210a",
+          "#da4b35",
+          "#fe755e",
+          "#feb4a5",
+          "#ffe9e4"
+        ]
+      },
+      "fondo-noche": {
+        "role": "neutral",
+        "displayName": "Fondo de Noche",
+        "canonical": "#0a1650",
+        "tonalRamp": [
+          "#02042d",
+          "#0f1d58",
+          "#293d7a",
+          "#475d9e",
+          "#667fc2",
+          "#88a3e8",
+          "#b2c8ff",
+          "#e8eeff"
+        ]
+      },
+      "superficie-noche": {
+        "role": "neutral",
+        "displayName": "Superficie de Noche",
+        "canonical": "#11216e",
+        "tonalRamp": [
+          "#020035",
+          "#0b1764",
+          "#233988",
+          "#405bad",
+          "#5f7dd2",
+          "#80a1f9",
+          "#b2c8fe",
+          "#e7eeff"
+        ]
+      },
+      "borde-noche": {
+        "role": "neutral",
+        "displayName": "Filete de Noche",
+        "canonical": "#2f409a",
+        "tonalRamp": [
+          "#040035",
+          "#11106b",
+          "#27368f",
+          "#4358b4",
+          "#617ada",
+          "#839fff",
+          "#b5c7fe",
+          "#e8eeff"
+        ]
+      },
+      "tinta-suave-noche": {
+        "role": "neutral",
+        "displayName": "Tinta Suave de Noche",
+        "canonical": "#c3c9e6",
+        "tonalRamp": [
+          "#080a18",
+          "#202339",
+          "#3c4058",
+          "#5b6079",
+          "#7b819b",
+          "#9ea3bf",
+          "#c3c8e0",
+          "#eceef8"
+        ]
+      },
+      "rojo-texto-noche": {
+        "role": "tertiary",
+        "displayName": "Rojo de Texto de Noche",
+        "canonical": "#ff9a82",
+        "tonalRamp": [
+          "#200000",
+          "#490900",
+          "#771e08",
+          "#9c412c",
+          "#c2634d",
+          "#e9866f",
+          "#feb4a2",
+          "#ffe9e4"
+        ]
+      },
+      "banda-tinta-suave": {
+        "role": "neutral",
+        "displayName": "Texto Suave sobre Azul",
+        "canonical": "#d7dcf4",
+        "tonalRamp": [
+          "#080a16",
+          "#212435",
+          "#3d4154",
+          "#5c6074",
+          "#7d8197",
+          "#9fa4ba",
+          "#c4c8dc",
+          "#eceef6"
+        ]
+      },
+      "banda-borde": {
+        "role": "neutral",
+        "displayName": "Filete sobre Azul",
+        "canonical": "#5068dc",
+        "tonalRamp": [
+          "#040034",
+          "#120077",
+          "#252e9e",
+          "#3e52c5",
+          "#5c76ec",
+          "#859ffc",
+          "#b5c7ff",
+          "#e8eeff"
+        ]
+      },
+      "kirei-tinta": {
+        "role": "neutral",
+        "displayName": "Kirei Tinta",
+        "canonical": "#0a2326",
+        "tonalRamp": [
+          "#010e10",
+          "#11292c",
+          "#2e474a",
+          "#4d676a",
+          "#6d888b",
+          "#8fabaf",
+          "#b7ced1",
+          "#e7f0f2"
+        ]
+      },
+      "kirei-tinta-2": {
+        "role": "neutral",
+        "displayName": "Kirei Tinta 2",
+        "canonical": "#123438",
+        "tonalRamp": [
+          "#000e11",
+          "#072a2e",
+          "#27484c",
+          "#46686c",
+          "#678a8e",
+          "#89adb1",
+          "#b1d0d4",
+          "#e5f1f3"
+        ]
+      },
+      "kirei-teal": {
+        "role": "neutral",
+        "displayName": "Kirei Teal",
+        "canonical": "#1d6b73",
+        "tonalRamp": [
+          "#000f11",
+          "#002b2f",
+          "#004c52",
+          "#206d75",
+          "#468f97",
+          "#6ab3bb",
+          "#9ad5dc",
+          "#ddf3f6"
+        ]
+      },
+      "kirei-esmalte": {
+        "role": "neutral",
+        "displayName": "Kirei Esmalte",
+        "canonical": "#f6f1e8",
+        "tonalRamp": [
+          "#0d0b07",
+          "#28251e",
+          "#45413a",
+          "#656159",
+          "#86827a",
+          "#a9a49c",
+          "#cdc9c1",
+          "#f0eeeb"
+        ]
+      },
+      "kirei-menta": {
+        "role": "neutral",
+        "displayName": "Kirei Menta",
+        "canonical": "#a8f0d4",
+        "tonalRamp": [
+          "#001008",
+          "#002d20",
+          "#004f3a",
+          "#277059",
+          "#4c9279",
+          "#6fb69c",
+          "#9ed8c1",
+          "#dff5eb"
+        ]
+      },
+      "kirei-coral": {
+        "role": "neutral",
+        "displayName": "Kirei Coral",
+        "canonical": "#ff6f4f",
+        "tonalRamp": [
+          "#200000",
+          "#490900",
+          "#791901",
+          "#af2700",
+          "#d94c2d",
+          "#fd7658",
+          "#feb4a2",
+          "#ffe9e4"
+        ]
+      },
+      "kirei-mantequilla": {
+        "role": "neutral",
+        "displayName": "Kirei Mantequilla",
+        "canonical": "#ffd87a",
+        "tonalRamp": [
+          "#120a00",
+          "#302300",
+          "#533f01",
+          "#7a5d00",
+          "#a17d0c",
+          "#c5a03f",
+          "#e5c57b",
+          "#faeed1"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Rótulo de pared",
+        "purpose": "Títulos de sección a gran escala."
+      },
+      "headline": {
+        "displayName": "Rótulo",
+        "purpose": "Títulos de página y bloque."
+      },
+      "title": {
+        "displayName": "Rótulo de andén",
+        "purpose": "Andenes y proyectos."
+      },
+      "boton": {
+        "displayName": "Boleto",
+        "purpose": "Texto de los botones."
+      },
+      "sello": {
+        "displayName": "Sello",
+        "purpose": "Estado de proyecto."
+      },
+      "lead": {
+        "displayName": "Entrada",
+        "purpose": "Entradas de sección."
+      },
+      "body": {
+        "displayName": "Lectura",
+        "purpose": "Descripciones."
+      },
+      "dato": {
+        "displayName": "Dato",
+        "purpose": "Horas, fechas y stack."
+      },
+      "kirei-display": {
+        "displayName": "Kirei Fraunces",
+        "purpose": "Títulos de la sección de Kirei."
+      }
+    },
+    "shadows": [
+      {
+        "name": "sombra-paleta",
+        "value": "0 0.03em 0.08em rgb(4 12 60 / 0.45)",
+        "purpose": "Separa cada paleta de la lámina."
+      },
+      {
+        "name": "foco",
+        "value": "0 0 0 2px #07124a",
+        "purpose": "Refuerzo oscuro del contorno amarillo de foco."
+      }
+    ],
+    "motion": [
+      {
+        "name": "caida-paleta",
+        "value": "115ms cubic-bezier(0.55, 0, 0.9, 0.4)",
+        "purpose": "Giro de la mitad superior de una paleta."
+      },
+      {
+        "name": "paso-paleta",
+        "value": "85ms",
+        "purpose": "Intervalo entre letras durante la caída al cargar."
+      },
+      {
+        "name": "cambio-color",
+        "value": "160ms ease-out",
+        "purpose": "Hover de botones; renglones y enlaces usan 150ms."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "40rem"
+      },
+      {
+        "name": "md",
+        "value": "48rem"
+      },
+      {
+        "name": "lg",
+        "value": "64rem"
+      },
+      {
+        "name": "xl",
+        "value": "80rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botón boleto",
+      "kind": "button",
+      "refersTo": "boton-boleto",
+      "description": "Acción principal, con muescas laterales de boleto.",
+      "html": "<a class=\"ds-boleto\" href=\"#\">Conocer Kirei</a>",
+      "css": ".ds-boleto { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; min-height: 3.25rem; padding: 0.7rem 1.75rem; background: var(--rojo); color: #fff8ea; font-family: var(--font-display, \"Big Shoulders Variable\", \"Arial Narrow\", sans-serif); font-size: 1.3rem; font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1; text-decoration: none; -webkit-mask: radial-gradient(0.5rem at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(0.5rem at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat; mask: radial-gradient(0.5rem at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(0.5rem at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat; transition: background-color 160ms ease-out, color 160ms ease-out; } .ds-boleto:hover { background: var(--amarillo); color: var(--noche); } .ds-boleto:focus-visible { outline: 3px solid var(--noche); outline-offset: -7px; } .ds-boleto:hover:focus-visible { outline-color: var(--rojo); }"
+    },
+    {
+      "name": "Botón de línea",
+      "kind": "button",
+      "refersTo": "boton-linea",
+      "description": "Acción secundaria con borde del color del texto.",
+      "html": "<a class=\"ds-linea\" href=\"#\">Escríbeme</a>",
+      "css": ".ds-linea { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 3.25rem; padding: 0.7rem 1.4rem; border: 2px solid currentColor; border-radius: 3px; color: var(--tinta); font-family: var(--font-display, \"Big Shoulders Variable\", \"Arial Narrow\", sans-serif); font-size: 1.2rem; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1; text-decoration: none; transition: background-color 160ms ease-out, color 160ms ease-out; } .ds-linea:hover { background: var(--tinta); color: var(--fondo); border-color: var(--tinta); } .ds-linea:focus-visible { outline: 3px solid var(--amarillo); outline-offset: 2px; box-shadow: 0 0 0 2px var(--noche); }"
+    },
+    {
+      "name": "Paletas",
+      "kind": "custom",
+      "refersTo": "paleta-amarilla",
+      "description": "Letras en tejas con corte horizontal; caen una sola vez al cargar.",
+      "html": "<span class=\"ds-paletas ds-paletas-amarillo\"><span class=\"ds-paleta\">K</span><span class=\"ds-paleta\">I</span><span class=\"ds-paleta\">R</span><span class=\"ds-paleta\">E</span><span class=\"ds-paleta\">I</span></span>",
+      "css": ".ds-paletas { --teja: var(--crema); --letra: var(--noche); display: inline-flex; gap: 0.05em; font-family: var(--font-display, \"Big Shoulders Variable\", \"Arial Narrow\", sans-serif); font-weight: 800; font-size: 3rem; line-height: 1; } .ds-paletas-amarillo { --teja: var(--amarillo); } .ds-paleta { position: relative; display: grid; place-items: center; width: 0.66em; height: 1.16em; overflow: hidden; border-radius: 0.05em; background: linear-gradient(to bottom, var(--teja) 50%, color-mix(in oklab, var(--teja) 91%, var(--noche)) 50%); color: var(--letra); box-shadow: 0 0.03em 0.08em rgb(4 12 60 / 0.45); } .ds-paleta::after { content: \"\"; position: absolute; inset: 0 0 auto; top: calc(50% - max(0.5px, 0.008em)); height: max(1px, 0.016em); background: rgb(7 18 74 / 0.5); }"
+    },
+    {
+      "name": "Sello de estado",
+      "kind": "chip",
+      "refersTo": "sello",
+      "description": "Declara el estado real de un proyecto.",
+      "html": "<span class=\"ds-sello\">Uso diario</span>",
+      "css": ".ds-sello { display: inline-block; padding: 0.2rem 0.45rem 0.15rem; border: 2px solid currentColor; border-radius: 3px; color: var(--acento-2); font-family: var(--font-display, \"Big Shoulders Variable\", \"Arial Narrow\", sans-serif); font-size: 0.95rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1; transform: rotate(-4deg); }"
+    },
+    {
+      "name": "Renglón de salida",
+      "kind": "card",
+      "refersTo": "",
+      "description": "Fila de proyecto con las columnas del tablero.",
+      "html": "<a class=\"ds-renglon\" href=\"#\"><span class=\"ds-renglon-titulo\">Práctica de japonés</span><span>Para mí · <span class=\"ds-renglon-estado\">Uso diario</span></span></a>",
+      "css": ".ds-renglon { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); column-gap: 2.5rem; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--borde); color: var(--tinta); text-decoration: none; transition: background-color 150ms; } .ds-renglon:hover { background: var(--superficie); } .ds-renglon:focus-visible { outline: 3px solid var(--amarillo); outline-offset: 2px; box-shadow: 0 0 0 2px var(--noche); } .ds-renglon-titulo { font-family: var(--font-display, \"Big Shoulders Variable\", \"Arial Narrow\", sans-serif); font-size: 1.5rem; font-weight: 800; text-transform: uppercase; line-height: 0.95; } .ds-renglon-estado { color: var(--acento-2); font-weight: 600; }"
+    },
+    {
+      "name": "Navegación",
+      "kind": "nav",
+      "refersTo": "banda",
+      "description": "Barra azul pegajosa con placas en hover y página actual.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-enlace\" aria-current=\"page\" href=\"#\">Kirei</a><a class=\"ds-nav-enlace\" href=\"#\">Proyectos</a><a class=\"ds-nav-enlace\" href=\"#\">Blog</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 0.25rem; height: 4.25rem; padding: 0 2rem; background: var(--azul); color: var(--crema); } .ds-nav-enlace { padding: 0.5rem 0.875rem; border-radius: 3px; color: inherit; font-family: var(--font-display, \"Big Shoulders Variable\", \"Arial Narrow\", sans-serif); font-size: 1.125rem; font-weight: 700; letter-spacing: 0.025em; text-transform: uppercase; text-decoration: none; transition: background-color 150ms; } .ds-nav-enlace:hover, .ds-nav-enlace[aria-current=\"page\"] { background: var(--azul-hondo); } .ds-nav-enlace:focus-visible { outline: 3px solid var(--amarillo); outline-offset: 2px; box-shadow: 0 0 0 2px var(--noche); }"
+    },
+    {
+      "name": "Campo",
+      "kind": "input",
+      "refersTo": "campo",
+      "description": "Campo de formulario sobre el papel de la página.",
+      "html": "<input class=\"ds-campo\" placeholder=\"Tu nombre\" />",
+      "css": ".ds-campo { width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--borde); border-radius: 3px; background: var(--fondo); color: var(--tinta); transition: border-color 150ms; } .ds-campo:focus { border-color: var(--acento); } .ds-campo:focus-visible { outline: 3px solid var(--amarillo); outline-offset: 2px; box-shadow: 0 0 0 2px var(--noche); }"
+    },
+    {
+      "name": "Franjas de carrocería",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Banda decorativa en tres tercios que remata las superficies azules.",
+      "html": "<div class=\"ds-franjas\"></div>",
+      "css": ".ds-franjas { height: 1.25rem; background: linear-gradient(to bottom, var(--rojo) 0 34%, var(--amarillo) 34% 67%, var(--crema) 67%); }"
+    },
+    {
+      "name": "CTA de Kirei",
+      "kind": "button",
+      "refersTo": "kirei-cta",
+      "description": "Píldora coral exclusiva de la sección de Kirei.",
+      "html": "<a class=\"ds-kirei\" href=\"#\">Ver Kirei</a>",
+      "css": ".ds-kirei { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 1.75rem; border-radius: 9999px; background: #ff6f4f; color: #0a2326; font-size: 1.125rem; font-weight: 600; text-decoration: none; transition: background-color 150ms; } .ds-kirei:hover { background: #a8f0d4; } .ds-kirei:focus-visible { outline: 3px solid #ffc21a; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "La Central de Salidas",
+    "overview": "Julzz Labs es una central de autobuses mexicana: cada producto es una salida con andén y estado real. El sistema toma de ahí sus materiales: lámina azul esmaltada, paletas mecánicas con corte horizontal, franjas de carrocería, boletos con muescas y sellos de estado. La letra es de rótulo, condensada y en mayúsculas, y la información se lee en columnas cuyo significado no cambia de un renglón a otro.\n\nLa densidad es de tablero: renglones separados por líneas, sin rejillas de tarjetas iguales. Las superficies azules abren y cierran las páginas, y entre ellas va el papel de boleto, crema de día y azul oscuro de noche. El único movimiento con carácter es la caída de las paletas al cargar; todo lo demás cambia de color y ya.\n\nKirei es un pasajero con identidad propia. Su sección deja la central y usa su tinta, su esmalte, su teal, su menta, su coral y su Fraunces, para que Julzz Labs no se confunda con ella.",
+    "keyCharacteristics": [
+      "Azul esmaltado, paletas amarillas y crema, y un rojo reservado para boletos y estados.",
+      "Letra de rótulo condensada en mayúsculas para todo lo que se anuncia; Barlow para lo que se lee.",
+      "Renglones con columnas fijas en lugar de tarjetas.",
+      "Esquinas casi rectas, con muescas de boleto como única silueta especial.",
+      "Estado explícito en cada proyecto, con sello o paletas."
+    ],
+    "rules": [
+      {
+        "name": "La Regla de la Lámina",
+        "body": "Azul, azul hondo, crema, amarillo y rojo no cambian con el tema. Solo cambia el papel: fondo, superficie, líneas y tintas.",
+        "section": "colors"
+      },
+      {
+        "name": "La Regla de la Letra sobre Rojo",
+        "body": "Sobre el rojo, la letra es Crema Clara. Un rojo más claro o una crema más oscura bajan de 4.5:1.",
+        "section": "colors"
+      },
+      {
+        "name": "La Regla del Pasajero",
+        "body": "La paleta de Kirei no sale de la sección de Kirei, y la de la central no entra en ella.",
+        "section": "colors"
+      },
+      {
+        "name": "La Regla del Rótulo",
+        "body": "Lo que se anuncia va en Big Shoulders mayúscula; lo que se lee, en Barlow con caja normal. Las oraciones largas no van en rótulo.",
+        "section": "typography"
+      },
+      {
+        "name": "La Regla de la Escala por Grupo",
+        "body": "Las paletas miden en `em`: su tamaño sale del font-size de su contenedor, nunca de medidas propias por letra.",
+        "section": "typography"
+      },
+      {
+        "name": "La Regla de la Lámina Plana",
+        "body": "Las superficies en flujo no llevan sombra: ni renglones, ni secciones, ni botones. La sombra es propia de la paleta.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do usar la letra Crema Clara sobre el Rojo Boleto.",
+      "Do repetir las mismas columnas en todas las filas de una tabla de salidas.",
+      "Do declarar el estado real de cada proyecto con sello o paletas.",
+      "Do dejar el tablero completo cuando no haya JavaScript o se pida movimiento reducido.",
+      "Do usar los tokens semánticos de papel y tinta para que la banda y el tema de noche se resuelvan solos.",
+      "Do mantener Fraunces y la paleta de Kirei dentro de la sección de Kirei."
+    ],
+    "donts": [
+      "Don't repetir la caída de las paletas después de la carga ni usarla como efecto de hover.",
+      "Don't poner la crema base como letra sobre el rojo.",
+      "Don't presentar los proyectos como una rejilla de tarjetas iguales.",
+      "Don't agregar sombras a superficies en flujo.",
+      "Don't usar píldoras ni Fraunces en las superficies de la central.",
+      "Don't cruzar la letra de una paleta chica con su corte."
+    ]
+  }
+}

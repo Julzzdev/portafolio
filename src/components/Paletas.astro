@@ -1,0 +1,16 @@
+---
+interface Props {
+  texto: string;
+  tono?: 'crema' | 'amarillo' | 'rojo' | 'azul';
+  /** Paleta de renglón: el corte no cruza la letra. */
+  chica?: boolean;
+  class?: string;
+}
+const { texto, tono = 'crema', chica = false, class: clase } = Astro.props;
+const letras = [...texto.toLocaleUpperCase('es-MX')];
+---
+
+<span class:list={['paletas', `paletas-${tono}`, chica && 'paletas-chicas', clase]} data-paletas>
+  <span class="sr-only">{texto}</span>
+  {letras.map((l) => <span class="paleta" aria-hidden="true" data-l={l}>{l === ' ' ? ' ' : l}</span>)}
+</span>

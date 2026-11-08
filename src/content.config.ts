@@ -16,6 +16,11 @@ const projects = defineCollection({
       repos: z.array(z.object({ nombre: z.string(), url: z.url() })).default([]),
       demo: z.url().optional(),
       featured: z.boolean().default(false),
+      // Renglón del tablero: nombre corto (máx. 10 letras), para quién, andén y estado real
+      corto: z.string().max(10),
+      para: z.string(),
+      anden: z.enum(['producto', 'medida', 'experimento']),
+      estado: z.enum(['proximamente', 'cliente', 'abierto', 'privado', 'diario', 'aqui']),
       // Posición en las listas (menor = primero); a igual orden, el más reciente primero
       order: z.number().default(99),
       // Color de acento en hex (#rrggbb); se le agregan canales alfa en las tarjetas

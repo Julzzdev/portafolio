@@ -26,7 +26,7 @@ declare global {
 }
 
 const campo =
-  'w-full rounded-xl border border-borde bg-fondo px-4 py-3 text-tinta placeholder:text-tinta-suave/60 transition focus:border-acento focus:outline-none focus:ring-2 focus:ring-acento/30 aria-[invalid=true]:border-red-500';
+  'w-full rounded-[3px] border border-borde bg-fondo px-4 py-3 text-tinta placeholder:text-tinta-suave transition-colors focus:border-acento aria-[invalid=true]:border-acento-2';
 
 export default function ContactForm({ textos, idioma, turnstileSiteKey }: Props) {
   const [estado, setEstado] = useState<Estado>('inactivo');
@@ -108,7 +108,7 @@ export default function ContactForm({ textos, idioma, turnstileSiteKey }: Props)
         <button
           type="submit"
           disabled={estado === 'enviando'}
-          className="rounded-full bg-tinta px-6 py-3 font-semibold text-fondo transition hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-60"
+          className="boton-boleto"
         >
           {estado === 'enviando' ? textos.enviando : textos.enviar}
         </button>

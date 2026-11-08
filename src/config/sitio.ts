@@ -1,6 +1,9 @@
 export const sitio = {
   nombre: 'Julio Olvera',
-  iniciales: 'JO',
+  marca: 'Julzz Labs',
+  iniciales: 'JL',
+  // Cuando exista kireidental.mx, se cambia aquí
+  kirei: { landing: 'https://odontoweb-landing.vercel.app' },
   email: 'julzzdev@gmail.com',
   ubicacion: 'México',
   github: 'https://github.com/Julzzdev',

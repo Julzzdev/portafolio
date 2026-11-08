@@ -13,9 +13,9 @@ const t = usarTraducciones(idioma);
 const posts = await getPosts(idioma);
 ---
 
-<Base titulo={`${t('blog.titulo')} · Julio Olvera`} descripcion={t('blog.descripcion')}>
+<Base titulo={`${t('blog.titulo')} · Julzz Labs`} descripcion={t('blog.descripcion')}>
   <Encabezado titulo={t('blog.titulo')} descripcion={t('blog.descripcion')} />
-  <div class="mx-auto grid max-w-6xl gap-6 px-5 py-10 md:grid-cols-2">
+  <div class="mx-auto grid max-w-[90rem] gap-x-8 gap-y-2 px-4 py-12 sm:px-8 md:grid-cols-2">
     {posts.length ? posts.map((post) => <PostCard post={post} nivel="h2" />) : <p class="text-tinta-suave">{t('blog.vacio')}</p>}
   </div>
 </Base>

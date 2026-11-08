@@ -7,7 +7,7 @@ export const personaLd = (site: URL) => ({
   name: sitio.nombre,
   url: site.href,
   email: `mailto:${sitio.email}`,
-  jobTitle: 'Senior Software Engineer — Backend & Full Stack',
+  jobTitle: 'Founder, Julzz Labs · Senior Software Engineer',
   alumniOf: { '@type': 'CollegeOrUniversity', name: 'Universidad Autónoma del Estado de México' },
   knowsAbout: Object.values(sitio.habilidades).flat(),
   hasCredential: certificaciones.map((c) => ({
@@ -24,7 +24,7 @@ export const personaLd = (site: URL) => ({
 
 export const sitioWebLd = (site: URL, idioma: string) => ({
   '@type': 'WebSite',
-  name: sitio.nombre,
+  name: sitio.marca,
   url: site.href,
   inLanguage: idioma,
   author: { '@id': new URL('/#persona', site).href },

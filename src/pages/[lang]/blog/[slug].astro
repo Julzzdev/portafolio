@@ -2,6 +2,7 @@
 import { render } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import Encabezado from '../../../components/Encabezado.astro';
+import Flecha from '../../../components/Flecha.astro';
 import { getPosts, idiomasDisponibles, minutosLectura } from '../../../lib/contenido';
 import { personaLd } from '../../../lib/schema';
 import { formatearFecha, ruta, separarId, usarTraducciones } from '../../../i18n/utils';
@@ -27,7 +28,7 @@ const url = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <Base
-  titulo={`${title} · Julio Olvera`}
+  titulo={`${title} · Julzz Labs`}
   descripcion={description}
   tipo="article"
   alternos={alternos}
@@ -49,18 +50,18 @@ const url = new URL(Astro.url.pathname, Astro.site).href;
 >
   <article>
     <Encabezado titulo={title} descripcion={description}>
-      <a slot="antes" href={ruta(idioma, 'blog')} class="mb-6 inline-block text-sm text-tinta-suave hover:text-tinta">
-        ← {t('blog.volver')}
+      <a slot="antes" href={ruta(idioma, 'blog')} class="mb-6 inline-block font-semibold text-tinta-suave hover:text-tinta">
+        <Flecha dir="atras" /> {t('blog.volver')}
       </a>
       <p class="mt-6 font-mono text-xs text-tinta-suave">
         <time datetime={pubDate.toISOString()}>{formatearFecha(pubDate, idioma)}</time>
         · {minutosLectura(post.body)} {t('blog.lectura')}
       </p>
       <ul class="mt-4 flex flex-wrap gap-2">
-        {tags.map((tag) => <li class="rounded-full bg-borde/50 px-3 py-1 text-xs">#{tag}</li>)}
+        {tags.map((tag) => <li class="rounded-[3px] border border-borde px-3 py-1 text-xs">#{tag}</li>)}
       </ul>
     </Encabezado>
-    <div class="prose prose-zinc dark:prose-invert mx-auto max-w-3xl px-5 py-12 prose-headings:tracking-tight prose-a:text-acento prose-pre:rounded-2xl prose-pre:border prose-pre:border-borde">
+    <div class="prose prose-zinc dark:prose-invert mx-auto max-w-3xl px-5 py-12 prose-headings:font-display prose-headings:uppercase prose-headings:font-extrabold prose-a:text-acento prose-pre:rounded-[3px] prose-pre:border prose-pre:border-borde">
       <Content />
     </div>
   </article>
