@@ -18,9 +18,10 @@ Sitio personal de Julio Olvera (ingeniería backend/fintech, México). Muestra s
 - Desplegado en Vercel (dominio automático vía `VERCEL_PROJECT_PRODUCTION_URL`); CI en GitHub Actions con `astro check`, build y Lighthouse CI.
 
 ## Status and next steps
-Activo y desplegado en https://julioolvera.vercel.app con el rediseño «La Central»; el rediseño «Registro de producción» (tecnología y confianza) está listo localmente, sin commit ni despliegue. Pendiente: revisar los textos nuevos de principios y evidencia; cambiar `sitio.kirei.landing` cuando exista kireidental.mx; reemplazar datos marcados con `TODO`, CV en español (hoy solo hay el inglés), configurar variables de Resend/Turnstile en Vercel y dominio propio, y añadir proyectos nuevos y artículos del blog.
+Activo y desplegado en https://julioolvera.vercel.app con el rediseño «La Central»; el rediseño «Registro de producción» (tecnología y confianza) está listo localmente, sin commit ni despliegue. Pendiente: revisar los textos nuevos de principios y evidencia; cambiar `sitio.kirei.landing` cuando exista kireidental.mx; reemplazar datos marcados con `TODO`, CV en español (hoy solo hay el inglés), configurar RESEND_API_KEY en Vercel (cuenta de Resend con julzzdev@gmail.com; el destinatario ya cae por defecto en ese correo) y, opcional, Turnstile y dominio propio, y añadir proyectos nuevos y artículos del blog.
 
 ## Log
+- 2026-11-13 El formulario de contacto envía a sitio.email por defecto; sólo falta RESEND_API_KEY en Vercel.
 - 2026-11-13 labresults pasa a privado: se quitan los enlaces a sus repos.
 - 2026-11-13 Rediseño «Registro de producción»: se retira la taquilla; panel de estado, evidencia verificable, principios de trabajo, IBM Plex Sans y nuevo favicon/OG.
 - 2026-11-08 CSS incrustado y precarga de la fuente de títulos: Lighthouse local ≥ 0.96 en rendimiento.

@@ -7,6 +7,7 @@ import {
   RESEND_API_KEY,
   TURNSTILE_SECRET_KEY,
 } from 'astro:env/server';
+import { sitio } from '../../config/sitio';
 
 export const prerender = false;
 
@@ -53,14 +54,15 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     return json({ ok: false, campos: ['turnstile'] }, 400);
   }
 
-  if (!RESEND_API_KEY || !CONTACT_TO_EMAIL) {
-    console.warn('[contact] Falta RESEND_API_KEY o CONTACT_TO_EMAIL; mensaje no enviado:', { nombre, email });
+  if (!RESEND_API_KEY) {
+    console.warn('[contact] Falta RESEND_API_KEY; mensaje no enviado:', { nombre, email });
     return json({ ok: false }, 503);
   }
 
   const { error } = await new Resend(RESEND_API_KEY).emails.send({
     from: CONTACT_FROM_EMAIL,
-    to: CONTACT_TO_EMAIL,
+    // Sin CONTACT_TO_EMAIL llega al correo público del sitio
+    to: CONTACT_TO_EMAIL ?? sitio.email,
     replyTo: email,
     subject: `Portafolio: mensaje de ${nombre} (${idioma})`,
     text: `${nombre} <${email}>\n\n${mensaje}`,
