@@ -21,6 +21,7 @@ Sitio personal de Julio Olvera (ingeniería backend/fintech, México). Muestra s
 Activo y desplegado en https://julioolvera.vercel.app con el rediseño «La Central»; el rediseño «Registro de producción» (tecnología y confianza) está listo localmente, sin commit ni despliegue. Pendiente: revisar los textos nuevos de principios y evidencia; cambiar `sitio.kirei.landing` cuando exista kireidental.mx; reemplazar datos marcados con `TODO`, CV en español (hoy solo hay el inglés), configurar variables de Resend/Turnstile en Vercel y dominio propio, y añadir proyectos nuevos y artículos del blog.
 
 ## Log
+- 2026-11-13 labresults pasa a privado: se quitan los enlaces a sus repos.
 - 2026-11-13 Rediseño «Registro de producción»: se retira la taquilla; panel de estado, evidencia verificable, principios de trabajo, IBM Plex Sans y nuevo favicon/OG.
 - 2026-11-08 CSS incrustado y precarga de la fuente de títulos: Lighthouse local ≥ 0.96 en rendimiento.
 - 2026-11-08 Rediseño desplegado a producción con la CLI; repo conectado a Vercel para despliegues desde Git.
