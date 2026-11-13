@@ -58,10 +58,10 @@ const url = new URL(Astro.url.pathname, Astro.site).href;
         · {minutosLectura(post.body)} {t('blog.lectura')}
       </p>
       <ul class="mt-4 flex flex-wrap gap-2">
-        {tags.map((tag) => <li class="rounded-[3px] border border-borde px-3 py-1 text-xs">#{tag}</li>)}
+        {tags.map((tag) => <li class="chip">#{tag}</li>)}
       </ul>
     </Encabezado>
-    <div class="prose prose-zinc dark:prose-invert mx-auto max-w-3xl px-5 py-12 prose-headings:font-display prose-headings:uppercase prose-headings:font-extrabold prose-a:text-acento prose-pre:rounded-[3px] prose-pre:border prose-pre:border-borde">
+    <div class="prose prose-zinc dark:prose-invert mx-auto max-w-3xl px-5 py-12 prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-acento prose-pre:rounded-xl prose-pre:border prose-pre:border-borde">
       <Content />
     </div>
   </article>

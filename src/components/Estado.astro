@@ -1,0 +1,39 @@
+---
+import { usarTraducciones } from '../i18n/utils';
+import type { Idioma } from '../i18n/ui';
+import type { Proyecto } from '../lib/contenido';
+
+interface Props {
+  estado: Proyecto['data']['estado'];
+  idioma: Idioma;
+  /** Sólo el punto, sin cápsula. */
+  simple?: boolean;
+}
+const { estado, idioma, simple = false } = Astro.props;
+const t = usarTraducciones(idioma);
+
+// El color dice qué tan cerca está de un usuario real
+const tonos = {
+  proximamente: 'tono-aviso',
+  cliente: 'tono-ok',
+  diario: 'tono-ok',
+  aqui: 'tono-ok',
+  abierto: 'tono-info',
+  privado: 'tono-apagado',
+} as const;
+const vivo = estado === 'proximamente' || estado === 'aqui';
+---
+
+{
+  simple ? (
+    <span class="inline-flex items-center gap-2 font-mono text-xs text-tinta-suave">
+      <span class:list={['punto', tonos[estado], vivo && 'punto-vivo']} aria-hidden="true" />
+      {t(`estado.${estado}`)}
+    </span>
+  ) : (
+    <span class="estado">
+      <span class:list={['punto', tonos[estado], vivo && 'punto-vivo']} aria-hidden="true" />
+      {t(`estado.${estado}`)}
+    </span>
+  )
+}

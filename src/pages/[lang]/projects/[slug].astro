@@ -5,6 +5,7 @@ import Base from '../../../layouts/Base.astro';
 import Encabezado from '../../../components/Encabezado.astro';
 import BotonLink from '../../../components/BotonLink.astro';
 import Flecha from '../../../components/Flecha.astro';
+import Estado from '../../../components/Estado.astro';
 import { idiomasDisponibles } from '../../../lib/contenido';
 import { personaLd } from '../../../lib/schema';
 import { ruta, separarId, usarTraducciones } from '../../../i18n/utils';
@@ -53,9 +54,9 @@ const { Content } = await render(proyecto);
       <a slot="antes" href={ruta(idioma, 'projects')} class="mb-6 inline-block font-semibold text-tinta-suave hover:text-tinta">
         <Flecha dir="atras" /> {t('proyectos.volver')}
       </a>
-      <p class="mt-6"><span class="sello">{t(`estado.${estado}`)}</span></p>
+      <p class="mt-6"><Estado estado={estado} idioma={idioma} /></p>
       <ul class="mt-5 flex flex-wrap gap-2">
-        {stack.map((tec) => <li class="rounded-[3px] border border-borde px-3 py-1 font-mono text-xs">{tec}</li>)}
+        {stack.map((tec) => <li class="chip">{tec}</li>)}
       </ul>
       {
         (demo || repos.length > 0) && (
@@ -74,13 +75,13 @@ const { Content } = await render(proyecto);
     {
       cover && (
         <div class="mx-auto mt-8 max-w-6xl px-4 sm:px-8">
-          <Image src={cover} alt={coverAlt ?? title} widths={[800, 1200, 1600]} sizes="(min-width: 1152px) 1152px, 100vw" loading="eager" fetchpriority="high" class="w-full rounded-[3px]" />
+          <Image src={cover} alt={coverAlt ?? title} widths={[800, 1200, 1600]} sizes="(min-width: 1152px) 1152px, 100vw" loading="eager" fetchpriority="high" class="w-full rounded-xl border border-borde" />
           {anden === 'producto' && <p class="mt-2 text-sm text-tinta-suave">{t('proyectos.ilustracion')}</p>}
         </div>
       )
     }
 
-    <div class="prose prose-zinc dark:prose-invert mx-auto max-w-3xl px-5 py-12 prose-headings:font-display prose-headings:uppercase prose-headings:font-extrabold prose-a:text-acento">
+    <div class="prose prose-zinc dark:prose-invert mx-auto max-w-3xl px-5 py-12 prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-acento">
       <Content />
     </div>
   </article>

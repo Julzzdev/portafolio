@@ -1,63 +1,69 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-@import "@fontsource-variable/big-shoulders";
-@import "@fontsource/barlow/latin-400.css";
-@import "@fontsource/barlow/latin-500.css";
-@import "@fontsource/barlow/latin-600.css";
+@import "@fontsource/ibm-plex-sans/latin-400.css";
+@import "@fontsource/ibm-plex-sans/latin-500.css";
+@import "@fontsource/ibm-plex-sans/latin-600.css";
+@import "@fontsource/ibm-plex-sans/latin-700.css";
 @import "@fontsource/fraunces/latin-300.css";
 @import "@fontsource/fraunces/latin-400-italic.css";
 @import "@fontsource-variable/jetbrains-mono";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Colores de la central: fijos en ambos temas */
+/* Registro de producción: superficies sobrias, líneas finas y color sólo donde informa */
 :root {
-  --azul: #1537c9;
-  --azul-hondo: #0b1f86;
-  --crema: #f4e9cf;
-  --amarillo: #ffc21a;
-  --rojo: #d6331d;
-  --noche: #07124a;
-
-  /* De día: papel de boleto */
-  --fondo: #f4e9cf;
-  --superficie: #fbf5e4;
-  --borde: #cdbd97;
-  --tinta: #0c1a5c;
-  --tinta-suave: #3e4a82;
-  --acento: #1537c9;
-  --acento-2: #b92a15;
+  --fondo: #f6f7f5;
+  --superficie: #ffffff;
+  --superficie-2: #eef1ef;
+  --borde: #dce2df;
+  --borde-fuerte: #b5bfbb;
+  --tinta: #0d1b1e;
+  --tinta-suave: #4b5a5e;
+  --acento: #1d4ed8;
+  --acento-tinta: #ffffff;
+  /* Señales de estado */
+  --ok: #0b7a50;
+  --aviso: #a85a06;
+  --info: #1d4ed8;
+  --apagado: #7b878b;
+  --rejilla: rgb(13 27 30 / 0.07);
 }
 
-/* De noche: la terminal con las luces bajas */
 .dark {
-  --fondo: #0a1650;
-  --superficie: #11216e;
-  --borde: #2f409a;
-  --tinta: #f4e9cf;
-  --tinta-suave: #c3c9e6;
-  --acento: #ffc21a;
-  --acento-2: #ff9a82;
+  --fondo: #0b1013;
+  --superficie: #11181c;
+  --superficie-2: #172126;
+  --borde: #223037;
+  --borde-fuerte: #36474f;
+  --tinta: #e6edef;
+  --tinta-suave: #9aaab0;
+  --acento: #7aa2ff;
+  --acento-tinta: #0b1013;
+  --ok: #3fcf8e;
+  --aviso: #f2b350;
+  --info: #7aa2ff;
+  --apagado: #6f7f86;
+  --rejilla: rgb(230 237 239 / 0.06);
 }
 
 @theme inline {
   --color-fondo: var(--fondo);
   --color-superficie: var(--superficie);
+  --color-superficie-2: var(--superficie-2);
   --color-borde: var(--borde);
+  --color-borde-fuerte: var(--borde-fuerte);
   --color-tinta: var(--tinta);
   --color-tinta-suave: var(--tinta-suave);
   --color-acento: var(--acento);
-  --color-acento-2: var(--acento-2);
-  --color-azul: var(--azul);
-  --color-azul-hondo: var(--azul-hondo);
-  --color-crema: var(--crema);
-  --color-amarillo: var(--amarillo);
-  --color-rojo: var(--rojo);
+  --color-acento-tinta: var(--acento-tinta);
+  --color-ok: var(--ok);
+  --color-aviso: var(--aviso);
+  --color-info: var(--info);
+  --color-apagado: var(--apagado);
 }
 
 @theme {
-  --font-sans: "Barlow", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Big Shoulders Variable", "Arial Narrow", sans-serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
   --font-kirei: "Fraunces", Georgia, serif;
   --color-kirei-tinta: #0a2326;
@@ -81,26 +87,24 @@
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
     color-scheme: light;
-    scrollbar-color: var(--azul) var(--crema);
   }
   html.dark {
     color-scheme: dark;
-    scrollbar-color: var(--amarillo) var(--noche);
   }
   body {
     @apply bg-fondo font-sans text-tinta antialiased;
+    font-feature-settings: "ss01", "ss02";
   }
   h1, h2, h3 {
     text-wrap: balance;
   }
   ::selection {
-    background: var(--amarillo);
-    color: var(--noche);
+    background: color-mix(in oklab, var(--acento) 25%, transparent);
   }
   :focus-visible {
-    outline: 3px solid var(--amarillo);
-    outline-offset: 2px;
-    box-shadow: 0 0 0 2px var(--noche);
+    outline: 2px solid var(--acento);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -112,180 +116,143 @@
   }
 }
 
-/* Superficie azul esmaltada: encabezado, tablero y cierres */
-.banda {
-  --tinta: var(--crema);
-  --tinta-suave: #d7dcf4;
-  --borde: #5068dc;
-  --superficie: var(--azul-hondo);
-  --acento: var(--amarillo);
-  --acento-2: var(--amarillo);
-  background: var(--azul);
-  color: var(--crema);
+/* En la capa de componentes para que las utilidades (hidden, sm:…) puedan sobrescribirlos */
+@layer components {
+.contenedor {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 78rem;
+  padding-inline: 1rem;
+}
+@media (min-width: 40rem) {
+  .contenedor { padding-inline: 2rem; }
 }
 
-/* Franjas de la carrocería */
-.franjas {
-  height: 1.25rem;
-  background: linear-gradient(
-    to bottom,
-    var(--rojo) 0 34%,
-    var(--amarillo) 34% 67%,
-    var(--crema) 67%
-  );
+/* Rejilla técnica de fondo, desvanecida hacia los bordes */
+.rejilla {
+  background-image:
+    linear-gradient(var(--rejilla) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rejilla) 1px, transparent 1px);
+  background-size: 2.5rem 2.5rem;
+  background-position: -1px -1px;
+  mask-image: radial-gradient(ellipse 90% 80% at 70% 20%, #000 30%, transparent 85%);
 }
 
-/* Columnas fijas del tablero: la misma medida en todas las filas */
-@media (min-width: 64rem) {
-  .col-tablero {
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-    column-gap: 2.5rem;
-  }
+.titulo {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.04;
 }
 
-.titulo-rotulo {
-  font-family: var(--font-display);
-  font-weight: 800;
+/* Etiqueta técnica: numeración y metadatos */
+.etiqueta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  letter-spacing: 0.005em;
-  line-height: 0.95;
+  color: var(--tinta-suave);
 }
 
-/* Paletas del tablero: la medida sale del font-size del grupo */
-.paletas {
-  --teja: var(--crema);
-  --letra: var(--noche);
-  display: inline-flex;
-  gap: 0.05em;
-  font-family: var(--font-display);
-  font-weight: 800;
-  line-height: 1;
-}
-.paletas-amarillo { --teja: var(--amarillo); }
-.paletas-azul { --teja: var(--azul); --letra: var(--crema); }
-.paletas-rojo { --teja: var(--rojo); --letra: #fff8ea; }
-.paleta {
+/* Punto de estado */
+.punto {
   position: relative;
-  display: grid;
-  place-items: center;
-  width: 0.66em;
-  height: 1.16em;
-  overflow: hidden;
-  border-radius: 0.05em;
-  background: linear-gradient(to bottom, var(--teja) 50%, color-mix(in oklab, var(--teja) 96%, var(--noche)) 50%);
-  color: var(--letra);
-  perspective: 2.5em;
-  box-shadow: 0 0.03em 0.08em rgb(4 12 60 / 0.45);
+  display: inline-block;
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--tono, var(--apagado));
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--tono, var(--apagado)) 18%, transparent);
 }
-/* Corte horizontal de la paleta */
-.paleta::after {
+.punto-vivo::after {
   content: "";
   position: absolute;
-  inset: 0 0 auto;
-  top: calc(50% - max(0.5px, 0.008em));
-  height: max(1px, 0.016em);
-  background: rgb(7 18 74 / 0.5);
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: latido 2.4s ease-out infinite;
 }
-/* En paletas chicas el corte pasa detrás de la letra para no tacharla */
-.paletas-chicas .paleta { isolation: isolate; }
-.paletas-chicas .paleta::after { z-index: -1; background: rgb(7 18 74 / 0.2); }
-/* Mitad superior que cae cuando cambia el dato */
-.paleta::before {
-  content: attr(data-previa);
-  position: absolute;
-  inset: 0 0 50%;
-  overflow: hidden;
-  background: var(--teja);
-  color: var(--letra);
-  line-height: 1.16em;
-  text-align: center;
-  transform-origin: bottom;
-  backface-visibility: hidden;
-  opacity: 0;
+@keyframes latido {
+  0% { transform: scale(1); opacity: 0.7; }
+  70%, 100% { transform: scale(2.8); opacity: 0; }
 }
-.paleta.cae::before {
-  animation: caer 110ms cubic-bezier(0.55, 0, 0.9, 0.4);
-}
-@keyframes caer {
-  from { opacity: 1; transform: rotateX(0deg); }
-  to { opacity: 1; transform: rotateX(-90deg); }
-}
+.tono-ok { --tono: var(--ok); }
+.tono-aviso { --tono: var(--aviso); }
+.tono-info { --tono: var(--info); }
+.tono-apagado { --tono: var(--apagado); }
 
-/* Botón con muescas de boleto */
-.boton-boleto {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  min-height: 3.25rem;
-  padding: 0.7rem 1.75rem;
-  background: var(--rojo);
-  color: #fff8ea;
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  line-height: 1;
-  -webkit-mask:
-    radial-gradient(0.5rem at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
-    radial-gradient(0.5rem at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
-  mask:
-    radial-gradient(0.5rem at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
-    radial-gradient(0.5rem at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
-  transition: background-color 160ms ease-out, color 160ms ease-out;
-}
-.boton-boleto:hover {
-  background: var(--amarillo);
-  color: var(--noche);
-}
-.boton-boleto:focus-visible {
-  outline: 3px solid var(--noche);
-  outline-offset: -7px;
-  box-shadow: none;
-}
-.boton-boleto:hover:focus-visible { outline-color: var(--rojo); }
-.boton-boleto:disabled {
-  opacity: 0.6;
-}
-.boton-linea {
+/* Insignia de estado: punto + texto */
+.estado {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  min-height: 3.25rem;
-  padding: 0.7rem 1.4rem;
-  border: 2px solid currentColor;
-  border-radius: 3px;
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  line-height: 1;
-  transition: background-color 160ms ease-out, color 160ms ease-out;
-}
-.boton-linea:hover {
-  background: var(--tinta);
-  color: var(--fondo);
-  border-color: var(--tinta);
-}
-.banda .boton-linea:hover {
-  color: var(--azul-hondo);
+  padding: 0.25rem 0.6rem 0.25rem 0.55rem;
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  background: var(--superficie);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  color: var(--tinta);
+  white-space: nowrap;
 }
 
-.sello {
+.chip {
   display: inline-block;
-  padding: 0.2rem 0.45rem 0.15rem;
-  border: 2px solid currentColor;
-  border-radius: 3px;
-  color: var(--acento-2);
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  background: var(--superficie);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--tinta-suave);
+}
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 2.875rem;
+  padding: 0.65rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
   line-height: 1;
-  transform: rotate(-4deg);
+  transition: background-color 150ms ease-out, border-color 150ms ease-out, color 150ms ease-out;
+}
+.boton-primario {
+  background: var(--tinta);
+  color: var(--fondo);
+}
+.boton-primario:hover {
+  background: var(--acento);
+  color: var(--acento-tinta);
+}
+.boton-secundario {
+  border-color: var(--borde-fuerte);
+  background: var(--superficie);
+  color: var(--tinta);
+}
+.boton-secundario:hover {
+  border-color: var(--tinta);
+}
+.boton:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.enlace {
+  color: var(--acento);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.enlace:hover {
+  text-decoration-thickness: 2px;
+}
 }
 
 /* La tipografía de los artículos usa la paleta del sitio en ambos temas */
@@ -296,10 +263,10 @@
   --tw-prose-links: var(--acento);
   --tw-prose-bold: var(--tinta);
   --tw-prose-counters: var(--tinta-suave);
-  --tw-prose-bullets: var(--borde);
+  --tw-prose-bullets: var(--borde-fuerte);
   --tw-prose-hr: var(--borde);
   --tw-prose-quotes: var(--tinta);
-  --tw-prose-quote-borders: var(--borde);
+  --tw-prose-quote-borders: var(--borde-fuerte);
   --tw-prose-code: var(--tinta);
   --tw-prose-th-borders: var(--borde);
   --tw-prose-td-borders: var(--borde);

@@ -10,6 +10,8 @@ import cabecerasSeguridad from './integraciones/cabeceras-seguridad.mjs';
 
 // https://astro.build/config
 export default defineConfig({
+  // El CSS incrustado evita una petición que bloquea el primer pintado
+  build: { inlineStylesheets: 'always' },
   // En Vercel se usa el dominio de producción (subdominio .vercel.app o el propio si se conecta);
   // fuera de Vercel, SITE_URL o localhost
   site: process.env.VERCEL_PROJECT_PRODUCTION_URL

@@ -20,3 +20,7 @@ Consult these guides before working on related tasks:
 - [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
 - [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
 - [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
+
+## Project tracking
+
+After each meaningful change, update PROJECT.md: its status, its updated date and one dated line at the top of its Log. It is how JARVIS, the user's voice assistant, keeps track of his projects.

@@ -11,12 +11,12 @@ const { post, nivel: Titulo = 'h3' } = Astro.props;
 const { idioma, slug } = separarId(post.id);
 ---
 
-<article class="group relative border-t-2 border-tinta py-5">
-  <time datetime={post.data.pubDate.toISOString()} class="font-mono text-xs text-tinta-suave">
+<article class="group relative border-t border-borde py-6">
+  <time datetime={post.data.pubDate.toISOString()} class="etiqueta">
     {formatearFecha(post.data.pubDate, idioma)}
   </time>
-  <Titulo class="mt-2 text-2xl font-semibold group-hover:text-acento">
+  <Titulo class="mt-2 text-xl font-semibold tracking-tight group-hover:text-acento">
     <a href={ruta(idioma, `blog/${slug}`)} class="after:absolute after:inset-0">{post.data.title}</a>
   </Titulo>
-  <p class="mt-2 text-sm text-tinta-suave">{post.data.description}</p>
+  <p class="mt-2 leading-relaxed text-tinta-suave">{post.data.description}</p>
 </article>

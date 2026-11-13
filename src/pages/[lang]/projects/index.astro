@@ -15,7 +15,7 @@ const proyectos = await getProyectos(idioma);
 
 <Base titulo={`${t('proyectos.titulo')} · Julzz Labs`} descripcion={t('proyectos.descripcion')}>
   <Encabezado titulo={t('proyectos.titulo')} descripcion={t('proyectos.descripcion')} />
-  <div class="mx-auto max-w-[90rem] px-4 py-14 sm:px-8">
+  <div class="contenedor py-14">
     <Andenes idioma={idioma} proyectos={proyectos} nivel="h2" />
   </div>
 </Base>

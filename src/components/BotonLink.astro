@@ -11,7 +11,7 @@ const { href, variante = 'primario', externo = false } = Astro.props;
   href={href}
   target={externo ? '_blank' : undefined}
   rel={externo ? 'noopener' : undefined}
-  class={variante === 'primario' ? 'boton-boleto' : 'boton-linea'}
+  class:list={['boton', variante === 'primario' ? 'boton-primario' : 'boton-secundario']}
 >
   <slot />
 </a>

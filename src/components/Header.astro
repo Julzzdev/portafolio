@@ -3,7 +3,7 @@ import { idiomas, type Idioma } from '../i18n/ui';
 import { cambiarIdioma, getIdiomaDeUrl, ruta, usarTraducciones } from '../i18n/utils';
 import { sitio } from '../config/sitio';
 import ThemeToggle from './ThemeToggle.astro';
-import Paletas from './Paletas.astro';
+import Marca from './Marca.astro';
 
 interface Props {
   alternos?: Idioma[];
@@ -18,17 +18,16 @@ const urlOtro = alternos.includes(otro) ? cambiarIdioma(Astro.url, otro) : ruta(
 const enlaces = [
   { href: `${ruta(idioma)}#kirei`, texto: 'Kirei' },
   { href: ruta(idioma, 'projects'), texto: t('nav.proyectos') },
+  { href: ruta(idioma, 'cv'), texto: t('nav.cv') },
   { href: ruta(idioma, 'blog'), texto: t('nav.blog') },
-  { href: ruta(idioma, 'contact'), texto: t('nav.contacto') },
 ];
 const activo = (href: string) => !href.includes('#') && Astro.url.pathname.startsWith(href.replace(/\/$/, ''));
 ---
 
-<header class="banda sticky top-0 z-40">
-  <nav class="mx-auto flex h-[4.25rem] max-w-[90rem] items-center justify-between gap-3 px-4 sm:px-8">
-    <a href={ruta(idioma)} class="text-[1.45rem]" aria-label={`${sitio.marca}, ${t('nav.inicio')}`}>
-      <Paletas texto="Julzz" tono="amarillo" chica />
-      <span class="titulo-rotulo ml-1 align-middle">Labs</span>
+<header class="sticky top-0 z-40 border-b border-borde bg-fondo/85 backdrop-blur-md">
+  <nav class="contenedor flex h-16 items-center justify-between gap-3">
+    <a href={ruta(idioma)} aria-label={`${sitio.marca}, ${t('nav.inicio')}`}>
+      <Marca />
     </a>
 
     <ul class="hidden items-center gap-1 md:flex">
@@ -38,7 +37,7 @@ const activo = (href: string) => !href.includes('#') && Astro.url.pathname.start
             <a
               href={href}
               aria-current={activo(href) ? 'page' : undefined}
-              class="rounded-[3px] px-3.5 py-2 font-display text-lg font-bold tracking-wide uppercase transition-colors hover:bg-azul-hondo aria-[current=page]:bg-azul-hondo"
+              class="rounded-md px-3 py-2 text-[0.95rem] font-medium text-tinta-suave transition-colors hover:text-tinta aria-[current=page]:text-tinta aria-[current=page]:underline aria-[current=page]:decoration-acento aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-[1.35rem]"
             >
               {texto}
             </a>
@@ -52,24 +51,27 @@ const activo = (href: string) => !href.includes('#') && Astro.url.pathname.start
         href={urlOtro}
         hreflang={idiomas[otro].bcp47}
         lang={idiomas[otro].bcp47}
-        class="rounded-[3px] px-3 py-2 font-display text-lg font-bold transition-colors hover:bg-azul-hondo"
+        class="grid h-10 place-items-center rounded-md px-2.5 font-mono text-xs font-medium text-tinta-suave transition-colors hover:bg-superficie-2 hover:text-tinta"
         aria-label={idiomas[otro].nombre}
       >
         {idiomas[otro].corto}
       </a>
       <ThemeToggle etiqueta={t('tema.cambiar')} />
+      <a href={ruta(idioma, 'contact')} class="boton boton-primario ml-2 hidden min-h-10 px-4 text-sm sm:inline-flex">
+        {t('nav.contacto')}
+      </a>
 
       <details class="relative md:hidden">
-        <summary class="grid size-11 cursor-pointer list-none place-items-center rounded-[3px] hover:bg-azul-hondo [&::-webkit-details-marker]:hidden" aria-label={t('nav.menu')}>
-          <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <summary class="grid size-10 cursor-pointer list-none place-items-center rounded-md hover:bg-superficie-2 [&::-webkit-details-marker]:hidden" aria-label={t('nav.menu')}>
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M4 7h16M4 12h16M4 17h16"></path>
           </svg>
         </summary>
-        <ul class="absolute right-0 mt-3 w-52 rounded-[3px] bg-azul-hondo p-2 shadow-xl">
+        <ul class="absolute right-0 mt-3 w-56 rounded-xl border border-borde bg-superficie p-2 shadow-xl shadow-black/10">
           {
-            enlaces.map(({ href, texto }) => (
+            [...enlaces, { href: ruta(idioma, 'contact'), texto: t('nav.contacto') }].map(({ href, texto }) => (
               <li>
-                <a href={href} class="block px-3 py-3 font-display text-xl font-bold uppercase hover:text-amarillo">
+                <a href={href} class="block rounded-md px-3 py-3 font-medium hover:bg-superficie-2">
                   {texto}
                 </a>
               </li>

@@ -1,38 +1,40 @@
 ---
-import Paletas from './Paletas.astro';
+import Estado from './Estado.astro';
+import Flecha from './Flecha.astro';
 import type { Proyecto } from '../lib/contenido';
-import { separarId, ruta, usarTraducciones } from '../i18n/utils';
+import { separarId, ruta } from '../i18n/utils';
 
 interface Props {
   /** Nivel del título según la jerarquía de la página. */
   nivel?: 'h2' | 'h3' | 'h4';
   proyecto: Proyecto;
-  /** La próxima salida: renglón a mayor escala. */
+  /** Producto propio: renglón a mayor escala. */
   destacado?: boolean;
 }
 
 const { proyecto, nivel: Titulo = 'h4', destacado = false } = Astro.props;
 const { idioma, slug } = separarId(proyecto.id);
-const t = usarTraducciones(idioma);
-const { title, description, stack, para, estado, corto, date } = proyecto.data;
+const { title, description, stack, para, estado, date } = proyecto.data;
 ---
 
-<article class="group col-tablero relative grid gap-y-4 border-b border-borde py-6 transition-colors duration-150 hover:bg-superficie">
+<article class="group relative grid gap-x-10 gap-y-4 border-b border-borde py-6 transition-colors duration-150 hover:bg-superficie md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] md:px-4">
   <div>
-    <Titulo class:list={['block', destacado ? 'text-[17vw] sm:text-8xl' : 'text-[1.9rem]']}>
+    <p class="etiqueta">{para}</p>
+    <Titulo class:list={['mt-2 font-semibold tracking-tight', destacado ? 'text-3xl sm:text-4xl' : 'text-xl sm:text-2xl']}>
       <a href={ruta(idioma, `projects/${slug}`)} class="after:absolute after:inset-0">
-        <span class="sr-only">{title}</span>
-        <span aria-hidden="true"><Paletas texto={corto} tono={destacado ? 'amarillo' : 'azul'} chica={!destacado} /></span>
+        {title}
+        <span class="ml-1 inline-block text-acento opacity-0 transition-[opacity,transform] duration-150 group-hover:translate-x-1 group-hover:opacity-100"><Flecha /></span>
       </a>
     </Titulo>
-    <p class:list={['mt-3 max-w-[62ch] leading-relaxed text-tinta-suave', destacado && 'text-lg']}>{description}</p>
+    <p class:list={['mt-2 max-w-[62ch] leading-relaxed text-tinta-suave', destacado && 'text-lg']}>{description}</p>
   </div>
-  <div class="flex flex-col items-start gap-3">
-    <p class="text-lg font-semibold">{para}</p>
-    <p class="font-mono text-xs leading-relaxed text-tinta-suave">{stack.slice(0, 5).join(' · ')}</p>
-    <p class="flex items-center gap-4">
-      <span class="sello">{t(`estado.${estado}`)}</span>
-      <time datetime={date.toISOString()} class="font-mono text-sm text-tinta-suave tabular-nums">{date.getUTCFullYear()}</time>
+  <div class="flex flex-col items-start gap-3 md:items-end md:text-right">
+    <p class="flex items-center gap-3">
+      <Estado estado={estado} idioma={idioma} />
+      <time datetime={date.toISOString()} class="font-mono text-xs text-tinta-suave tabular-nums">{date.getUTCFullYear()}</time>
     </p>
+    <ul class="flex flex-wrap gap-1.5 md:justify-end">
+      {stack.slice(0, 5).map((tec) => <li class="chip">{tec}</li>)}
+    </ul>
   </div>
 </article>

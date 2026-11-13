@@ -2,16 +2,19 @@
 interface Props {
   titulo: string;
   descripcion?: string;
+  /** Etiqueta técnica sobre el título. */
+  etiqueta?: string;
 }
-const { titulo, descripcion } = Astro.props;
+const { titulo, descripcion, etiqueta } = Astro.props;
 ---
 
-<header class="banda">
-  <div class="mx-auto max-w-[90rem] px-4 pt-14 pb-12 sm:px-8 sm:pt-20">
+<header class="relative overflow-hidden border-b border-borde">
+  <div class="rejilla pointer-events-none absolute inset-0" aria-hidden="true"></div>
+  <div class="contenedor relative pt-12 pb-12 sm:pt-16 sm:pb-14">
     <slot name="antes" />
-    <h1 class="titulo-rotulo max-w-[22ch] text-6xl sm:text-7xl">{titulo}</h1>
-    {descripcion && <p class="mt-5 max-w-2xl text-xl leading-relaxed text-tinta-suave">{descripcion}</p>}
+    {etiqueta && <p class="etiqueta mb-4">{etiqueta}</p>}
+    <h1 class="titulo max-w-[24ch] text-4xl sm:text-6xl">{titulo}</h1>
+    {descripcion && <p class="mt-5 max-w-2xl text-lg leading-relaxed text-tinta-suave sm:text-xl">{descripcion}</p>}
     <slot />
   </div>
-  <div class="franjas" aria-hidden="true"></div>
 </header>

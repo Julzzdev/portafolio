@@ -1,6 +1,5 @@
 ---
 import ProjectCard from './ProjectCard.astro';
-import Paletas from './Paletas.astro';
 import type { Proyecto } from '../lib/contenido';
 import { usarTraducciones } from '../i18n/utils';
 import type { Idioma } from '../i18n/ui';
@@ -8,34 +7,30 @@ import type { Idioma } from '../i18n/ui';
 interface Props {
   idioma: Idioma;
   proyectos: Proyecto[];
-  /** Nivel de los títulos de andén. */
+  /** Nivel de los títulos de categoría. */
   nivel?: 'h2' | 'h3';
 }
 const { idioma, proyectos, nivel: Titulo = 'h3' } = Astro.props;
 const t = usarTraducciones(idioma);
-const nivelBoleto = Titulo === 'h2' ? 'h3' : 'h4';
-const andenes = [
-  { id: 'producto', numero: 1 },
-  { id: 'medida', numero: 2 },
-  { id: 'experimento', numero: 3 },
-] as const;
+const nivelTarjeta = Titulo === 'h2' ? 'h3' : 'h4';
+const categorias = ['producto', 'medida', 'experimento'] as const;
 ---
 
 <div class="grid gap-16">
   {
-    andenes.map(({ id, numero }) => (
-      <section>
-        <div class="mb-4 flex flex-wrap items-center gap-x-4 gap-y-1">
-          <span class="text-5xl" aria-hidden="true"><Paletas texto={String(numero)} tono="azul" /></span>
-          <Titulo class="titulo-rotulo text-4xl">
-            <span class="sr-only">{t('tablero.anden')} {numero}: </span>{t(`anden.${id}`)}
-          </Titulo>
-          <p class="basis-full text-tinta-suave sm:basis-auto">{t(`anden.${id}.nota`)}</p>
-        </div>
-        <div class="border-t-2 border-tinta">
-          {proyectos.filter((p) => p.data.anden === id).map((proyecto) => <ProjectCard proyecto={proyecto} nivel={nivelBoleto} destacado={id === 'producto'} />)}
-        </div>
-      </section>
-    ))
+    categorias.map((id, i) => {
+      const lista = proyectos.filter((p) => p.data.anden === id);
+      return (
+        <section>
+          <div class="mb-2 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-tinta pb-3">
+            <span class="etiqueta" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <Titulo class="text-2xl font-semibold tracking-tight">{t(`anden.${id}`)}</Titulo>
+            <p class="text-tinta-suave">{t(`anden.${id}.nota`)}</p>
+            <span class="etiqueta ml-auto" aria-hidden="true">{lista.length}</span>
+          </div>
+          {lista.map((proyecto) => <ProjectCard proyecto={proyecto} nivel={nivelTarjeta} destacado={id === 'producto'} />)}
+        </section>
+      );
+    })
   }
 </div>
